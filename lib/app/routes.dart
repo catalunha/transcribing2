@@ -1,5 +1,8 @@
 import 'package:get/get.dart';
+import 'package:transcribing2/app/modules/splash/splash_binding.dart';
 
+import 'modules/home/home_page.dart';
+import 'modules/login/login_page.dart';
 import 'modules/splash/splash_page.dart';
 
 abstract class RoutesPaths {
@@ -13,21 +16,23 @@ class RoutesPages {
     GetPage(
       name: RoutesPaths.splash,
       page: () => SplashPage(),
+      binding: SplashBinding(),
     ),
-    // GetPage(
-    //   name: RoutesPaths.login,
-    //   page: () => LoginPage(),
-    //   binding: LoginBinding(),
-    // ),
+    GetPage(
+      name: RoutesPaths.login,
+      page: () => const LoginPage(),
+      // binding: LoginBinding(),
+    ),
+    GetPage(
+      name: RoutesPaths.home,
+      page: () => HomePage(),
+      // binding: HomeBinding(),
+    ),
+
     // GetPage(
     //   name: RoutesPaths.register,
     //   page: () => RegisterPage(),
     //   binding: RegisterBinding(),
-    // ),
-    // GetPage(
-    //   name: RoutesPaths.home,
-    //   page: () => HomePage(),
-    //   binding: HomeBinding(),
     // ),
   ];
 }
