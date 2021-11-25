@@ -8,7 +8,7 @@ import 'package:transcribing2/app/modules/login/login_page.dart';
 import '../../routes.dart';
 
 class SplashController extends GetxController {
-  static var instance = Get.find<SplashController>();
+  // static var instance = Get.find<SplashController>();
   late Rx<User?> firebaseUser;
   late Rx<GoogleSignInAccount?> googleSignInAccount;
 
@@ -55,7 +55,7 @@ class SplashController extends GetxController {
     if (googleSignInAccount == null) {
       print('_setInitialScreenGoogle: googleSignInAccount==null');
       // if the user is not found then the user is navigated to the LoginPage
-      Get.offAll(() => const LoginPage());
+      Get.offAll(() => LoginPage());
       // Get.offAllNamed(
       //   RoutesPaths.login,
       // );

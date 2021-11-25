@@ -20,7 +20,7 @@ class RoutesPages {
     ),
     GetPage(
       name: RoutesPaths.login,
-      page: () => const LoginPage(),
+      page: () => LoginPage(),
       // binding: LoginBinding(),
     ),
     GetPage(
