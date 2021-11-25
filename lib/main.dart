@@ -10,7 +10,6 @@ import 'app/translation/app_translations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initial1izeApp();
   await firebaseInitialization;
   await GetStorage.init('transcribing');
   runApp(const MyApp());

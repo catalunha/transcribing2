@@ -3,10 +3,13 @@ import 'package:get/get.dart';
 import 'package:transcribing2/app/modules/splash/splash_controller.dart';
 import 'package:transcribing2/app/theme/app_images.dart';
 
-class LoginPage extends StatelessWidget {
-  final splashController = Get.find<SplashController>();
+class LoginPage extends GetView<SplashController> {
+// class LoginPage extends StatelessWidget {
+  // final splashController = Get.find<SplashController>();
 
-  LoginPage({Key? key}) : super(key: key);
+  LoginPage({Key? key}) : super(key: key) {
+    // controller;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +17,7 @@ class LoginPage extends StatelessWidget {
         child: IconButton(
           onPressed: () {
             // splashController.signOut();
-            splashController.signInWithGoogle();
+            controller.signInWithGoogle();
           },
           icon: const Icon(Icons.login),
         ),

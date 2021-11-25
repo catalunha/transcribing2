@@ -15,12 +15,12 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: const Text('Olá, ?'),
         actions: [
           // popMenu(),
           IconButton(
               onPressed: () {
                 splashController.signOut();
-                // splashController.signOut();
               },
               icon: const Icon(Icons.logout))
         ],

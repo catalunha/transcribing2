@@ -5,13 +5,13 @@ import 'package:get/get.dart';
 
 import 'splash_controller.dart';
 
-// class SplashPage extends GetView<SplashController> {
-class SplashPage extends StatelessWidget {
+class SplashPage extends GetView<SplashController> {
+// class SplashPage extends StatelessWidget {
   // final nuncaVouUsarAqui = SplashController.instance;
-  final splashController = Get.find<SplashController>();
+  // final splashController = Get.find<SplashController>();
   SplashPage({Key? key}) : super(key: key) {
     // startTimeout();
-    // controller;
+    controller;
   }
 
   @override
