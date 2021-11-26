@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import 'app/data/provider/common_provider.dart';
+import 'app/data/service/firebase_service.dart';
 import 'app/routes.dart';
 import 'app/theme/app_theme.dart';
 import 'app/translation/app_translations.dart';
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       darkTheme: appThemeDataDark,
       themeMode: ThemeMode.system,
       getPages: RoutesPages.pageList,
-      initialRoute: RoutesPaths.splash,
+      initialRoute: RoutesPaths.auth,
       locale: const Locale('pt', 'BR'),
       translationsKeys: AppTranslations.translations,
     );

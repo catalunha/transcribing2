@@ -1,12 +1,12 @@
 import 'package:get/get.dart';
-import 'package:transcribing2/app/modules/splash/splash_binding.dart';
+import 'package:transcribing2/app/modules/auth/auth_binding.dart';
 
 import 'modules/home/home_page.dart';
 import 'modules/login/login_page.dart';
-import 'modules/splash/splash_page.dart';
+import 'modules/auth/auth_page.dart';
 
 abstract class RoutesPaths {
-  static const splash = '/';
+  static const auth = '/';
   static const login = '/login';
   static const home = '/home';
 }
@@ -14,9 +14,9 @@ abstract class RoutesPaths {
 class RoutesPages {
   static final pageList = [
     GetPage(
-      name: RoutesPaths.splash,
-      page: () => SplashPage(),
-      binding: SplashBinding(),
+      name: RoutesPaths.auth,
+      page: () => AuthPage(),
+      binding: AuthBinding(),
     ),
     GetPage(
       name: RoutesPaths.login,

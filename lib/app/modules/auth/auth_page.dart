@@ -3,13 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'splash_controller.dart';
+import 'auth_controller.dart';
 
-class SplashPage extends StatelessWidget {
+class AuthPage extends StatelessWidget {
 // class SplashPage extends GetView<SplashController> {
-  final splashController = Get.find<SplashController>();
+  final splashController = Get.find<AuthController>();
 
-  SplashPage({Key? key}) : super(key: key) {
+  AuthPage({Key? key}) : super(key: key) {
     // controller;
   }
 

@@ -1,16 +1,20 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:transcribing2/app/data/provider/auth_provider.dart';
+import 'package:transcribing2/app/data/service/auth_service.dart';
 import 'package:transcribing2/app/modules/home/home_page.dart';
 import 'package:transcribing2/app/modules/login/login_page.dart';
 
 import '../../routes.dart';
 
-class SplashController extends GetxController {
-  // static var instance = Get.find<SplashController>();
-  late Rx<User?> firebaseUser;
-  late Rx<GoogleSignInAccount?> googleSignInAccount;
+class AuthController extends GetxController {
+  final AuthService authService = Get.find<AuthService>();
+
+  // final AuthService authService;
+  // late Rx<User?> firebaseUser;
+  // late Rx<GoogleSignInAccount?> googleSignInAccount;
+
+  AuthController();
 
   @override
   void onReady() {
@@ -18,17 +22,24 @@ class SplashController extends GetxController {
     // auth is comning from the constants.dart file but it is basically FirebaseAuth.instance.
     // Since we have to use that many times I just made a constant file and declared there
 
-    firebaseUser = Rx<User?>(firebaseAuth.currentUser);
-    googleSignInAccount = Rx<GoogleSignInAccount?>(googleSign.currentUser);
+    // firebaseUser = Rx<User?>(firebaseAuth.currentUser);
+    // googleSignInAccount = Rx<GoogleSignInAccount?>(googleSign.currentUser);
 
-    firebaseUser.bindStream(firebaseAuth.userChanges());
-    ever(firebaseUser, _setInitialScreen);
+    // firebaseUser.bindStream(firebaseAuth.userChanges());
+    // ever(firebaseUser, _setInitialScreen);
 
-    googleSignInAccount.bindStream(googleSign.onCurrentUserChanged);
-    ever(googleSignInAccount, _setInitialScreenGoogle);
+    // googleSignInAccount.bindStream(googleSign.onCurrentUserChanged);
+    // ever(googleSignInAccount, _setInitialScreenGoogle);
+    // authService.setInitialScreenFirebaseUser = _setInitialScreen;
+    // authService.setInitialScreenGoogle = _setInitialScreenGoogle;
+    authService.startService(
+      setInitialScreenFirebaseUser: _setInitialScreenFirebaseUser,
+      setInitialScreenGoogle: _setInitialScreenGoogle,
+    );
+    // authService.onReady();
   }
 
-  _setInitialScreen(User? user) {
+  _setInitialScreenFirebaseUser(User? user) {
     print('_setInitialScreen');
 
     if (user == null) {
@@ -73,21 +84,22 @@ class SplashController extends GetxController {
 
   void signInWithGoogle() async {
     try {
-      GoogleSignInAccount? googleSignInAccount = await googleSign.signIn();
+      authService.signInWithGoogle();
+      // GoogleSignInAccount? googleSignInAccount = await googleSign.signIn();
 
-      if (googleSignInAccount != null) {
-        GoogleSignInAuthentication googleSignInAuthentication =
-            await googleSignInAccount.authentication;
+      // if (googleSignInAccount != null) {
+      //   GoogleSignInAuthentication googleSignInAuthentication =
+      //       await googleSignInAccount.authentication;
 
-        AuthCredential credential = GoogleAuthProvider.credential(
-          accessToken: googleSignInAuthentication.accessToken,
-          idToken: googleSignInAuthentication.idToken,
-        );
+      //   AuthCredential credential = GoogleAuthProvider.credential(
+      //     accessToken: googleSignInAuthentication.accessToken,
+      //     idToken: googleSignInAuthentication.idToken,
+      //   );
 
-        await firebaseAuth
-            .signInWithCredential(credential)
-            .catchError((onErr) => print(onErr));
-      }
+      //   await firebaseAuth
+      //       .signInWithCredential(credential)
+      //       .catchError((onErr) => print(onErr));
+      // }
     } catch (e) {
       Get.snackbar(
         "Error in signInWithGoogle",
@@ -112,7 +124,8 @@ class SplashController extends GetxController {
   // }
 
   void signOut() async {
-    await googleSign.disconnect();
-    await firebaseAuth.signOut();
+    authService.signOut();
+    // await googleSign.disconnect();
+    // await firebaseAuth.signOut();
   }
 }

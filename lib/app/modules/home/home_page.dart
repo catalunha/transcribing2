@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:transcribing2/app/modules/splash/splash_controller.dart';
+import 'package:transcribing2/app/modules/auth/auth_controller.dart';
 import 'package:transcribing2/app/theme/app_icon.dart';
 
 // class HomePage extends StatelessWidget {
@@ -31,7 +31,7 @@ import 'package:transcribing2/app/theme/app_icon.dart';
 // }
 
 class HomePage extends StatelessWidget {
-  final splashController = Get.find<SplashController>();
+  final splashController = Get.find<AuthController>();
 
   HomePage({
     Key? key,
