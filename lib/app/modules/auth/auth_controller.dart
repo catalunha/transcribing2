@@ -41,8 +41,12 @@ class AuthController extends GetxController {
 
   _setInitialScreenFirebaseUser(User? user) {
     print('_setInitialScreen');
+    Get.routing;
+    if (Get.routing.current == '/home') {
+      print('estamos na home');
+    }
 
-    if (user == null) {
+    if (user == null && Get.routing.current != RoutesPaths.login) {
       print('_setInitialScreen: user==null');
 
       // if the user is not found then the user is navigated to the LoginPage
@@ -50,7 +54,7 @@ class AuthController extends GetxController {
       Get.offAllNamed(
         RoutesPaths.login,
       );
-    } else {
+    } else if (user != null && Get.routing.current != RoutesPaths.home) {
       print('_setInitialScreen: user!=null');
 
       // if the user exists and logged in the the user is navigated to the HomePage
@@ -63,22 +67,24 @@ class AuthController extends GetxController {
 
   _setInitialScreenGoogle(GoogleSignInAccount? googleSignInAccount) {
     print('_setInitialScreenGoogle');
-    if (googleSignInAccount == null) {
+    if (googleSignInAccount == null &&
+        Get.routing.current != RoutesPaths.login) {
       print('_setInitialScreenGoogle: googleSignInAccount==null');
       // if the user is not found then the user is navigated to the LoginPage
-      Get.offAll(() => LoginPage());
-      // Get.offAllNamed(
-      //   RoutesPaths.login,
-      // );
-    } else {
+      // Get.offAll(() => LoginPage());
+      Get.offAllNamed(
+        RoutesPaths.login,
+      );
+    } else if (googleSignInAccount != null &&
+        Get.routing.current != RoutesPaths.home) {
       print('_setInitialScreenGoogle: googleSignInAccount!=null');
 
-      print(googleSignInAccount.displayName);
+      // print(googleSignInAccount.displayName);
       // if the user exists and logged in the the user is navigated to the HomePage
-      Get.offAll(() => HomePage());
-      // Get.offAllNamed(
-      //   RoutesPaths.home,
-      // );
+      // Get.offAll(() => HomePage());
+      Get.offAllNamed(
+        RoutesPaths.home,
+      );
     }
   }
 

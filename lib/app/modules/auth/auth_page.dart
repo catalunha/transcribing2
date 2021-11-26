@@ -7,7 +7,7 @@ import 'auth_controller.dart';
 
 class AuthPage extends StatelessWidget {
 // class SplashPage extends GetView<SplashController> {
-  final splashController = Get.find<AuthController>();
+  final authController = Get.find<AuthController>();
 
   AuthPage({Key? key}) : super(key: key) {
     // controller;

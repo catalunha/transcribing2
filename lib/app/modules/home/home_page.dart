@@ -4,8 +4,8 @@ import 'package:transcribing2/app/modules/auth/auth_controller.dart';
 import 'package:transcribing2/app/theme/app_icon.dart';
 
 // class HomePage extends StatelessWidget {
-//   // final splashController = SplashController.instance;
-//   final splashController = Get.find<SplashController>();
+//   // final authController = SplashController.instance;
+//   final authController = Get.find<SplashController>();
 
 //   HomePage({
 //     Key? key,
@@ -20,7 +20,7 @@ import 'package:transcribing2/app/theme/app_icon.dart';
 //           // popMenu(),
 //           IconButton(
 //               onPressed: () {
-//                 splashController.signOut();
+//                 authController.signOut();
 //               },
 //               icon: const Icon(Icons.logout))
 //         ],
@@ -31,7 +31,7 @@ import 'package:transcribing2/app/theme/app_icon.dart';
 // }
 
 class HomePage extends StatelessWidget {
-  final splashController = Get.find<AuthController>();
+  final authController = Get.find<AuthController>();
 
   HomePage({
     Key? key,
@@ -135,7 +135,7 @@ class HomePage extends StatelessWidget {
             child: TextButton.icon(
               label: const Text('Exit'),
               onPressed: () {
-                splashController.signOut();
+                authController.signOut();
               },
               icon: const Icon(AppIconData.exit),
             ),

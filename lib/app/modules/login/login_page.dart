@@ -5,7 +5,7 @@ import 'package:transcribing2/app/theme/app_images.dart';
 
 // class LoginPage extends GetView<SplashController> {
 // // class LoginPage extends StatelessWidget {
-//   // final splashController = Get.find<SplashController>();
+//   // final authController = Get.find<SplashController>();
 
 //   LoginPage({Key? key}) : super(key: key) {
 //     // controller;
@@ -16,7 +16,7 @@ import 'package:transcribing2/app/theme/app_images.dart';
 //       body: Center(
 //         child: IconButton(
 //           onPressed: () {
-//             // splashController.signOut();
+//             // authController.signOut();
 //             controller.signInWithGoogle();
 //           },
 //           icon: const Icon(Icons.login),
@@ -60,7 +60,7 @@ class LoginPage extends GetView<AuthController> {
             // ),
             OutlinedButton.icon(
               onPressed: () {
-                // splashController.signInWithGoogle();
+                // authController.signInWithGoogle();
                 controller.signInWithGoogle();
               },
               icon: Image.asset(AppImages.google),
