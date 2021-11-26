@@ -112,6 +112,7 @@ class SplashController extends GetxController {
   // }
 
   void signOut() async {
+    await googleSign.disconnect();
     await firebaseAuth.signOut();
   }
 }
