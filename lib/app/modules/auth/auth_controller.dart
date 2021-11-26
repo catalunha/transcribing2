@@ -40,14 +40,12 @@ class AuthController extends GetxController {
   }
 
   _setInitialScreenFirebaseUser(User? user) {
-    print('_setInitialScreen');
-    Get.routing;
-    if (Get.routing.current == '/home') {
-      print('estamos na home');
-    }
+    print('_setInitialScreenFirebaseUser');
+    print('Estamos na route: ${Get.routing.current}');
 
     if (user == null && Get.routing.current != RoutesPaths.login) {
-      print('_setInitialScreen: user==null');
+      print('_setInitialScreenFirebaseUser: user==null');
+      print('Indo para a route: login');
 
       // if the user is not found then the user is navigated to the LoginPage
       // Get.offAll(() => const LoginPage());
@@ -55,8 +53,8 @@ class AuthController extends GetxController {
         RoutesPaths.login,
       );
     } else if (user != null && Get.routing.current != RoutesPaths.home) {
-      print('_setInitialScreen: user!=null');
-
+      print('_setInitialScreenFirebaseUser: user!=null');
+      print('Indo para a route: home');
       // if the user exists and logged in the the user is navigated to the HomePage
       // Get.offAll(() => HomePage());
       Get.offAllNamed(
@@ -67,9 +65,12 @@ class AuthController extends GetxController {
 
   _setInitialScreenGoogle(GoogleSignInAccount? googleSignInAccount) {
     print('_setInitialScreenGoogle');
+    print('Estamos na route: ${Get.routing.current}');
+
     if (googleSignInAccount == null &&
         Get.routing.current != RoutesPaths.login) {
       print('_setInitialScreenGoogle: googleSignInAccount==null');
+      print('Indo para a route: login');
       // if the user is not found then the user is navigated to the LoginPage
       // Get.offAll(() => LoginPage());
       Get.offAllNamed(
@@ -78,6 +79,7 @@ class AuthController extends GetxController {
     } else if (googleSignInAccount != null &&
         Get.routing.current != RoutesPaths.home) {
       print('_setInitialScreenGoogle: googleSignInAccount!=null');
+      print('Indo para a route: home');
 
       // print(googleSignInAccount.displayName);
       // if the user exists and logged in the the user is navigated to the HomePage
