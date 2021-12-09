@@ -6,8 +6,6 @@ class UserRepository extends GetxService {
   final FirebaseFirestore _firebaseFirestoreInstance =
       FirebaseFirestore.instance;
 
-// UserRepository(this.api);
-
   Future<Map<String, dynamic>?> getByUid(String uid) async {
     var querySnapshot = await _firebaseFirestoreInstance
         .collection(UserModel.collection)

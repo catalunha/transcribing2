@@ -32,10 +32,7 @@ class HomePage extends StatelessWidget {
                   leading: const Icon(Icons.people_alt),
                   title: const Text('Create a team'),
                   onTap: () async {
-                    Navigator.pushNamed(
-                      context,
-                      '/team_page',
-                    );
+                    Get.toNamed('/team');
                   },
                 ),
               ),
