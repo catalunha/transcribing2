@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:transcribing2/app/data/repository/user_repository.dart';
 import 'package:transcribing2/app/data/service/auth_service.dart';
 import 'package:transcribing2/app/modules/home/home_page.dart';
 import 'package:transcribing2/app/modules/login/login_page.dart';
+import 'package:transcribing2/app/modules/user/user_controller.dart';
 
 import '../../routes.dart';
 
@@ -11,14 +13,18 @@ class AuthController extends GetxController {
   final AuthService authService = Get.find<AuthService>();
 
   // final AuthService authService;
-  // late Rx<User?> firebaseUser;
+  late User? _firebaseUser;
+  get firebaseUser => _firebaseUser;
+
   // late Rx<GoogleSignInAccount?> googleSignInAccount;
 
   AuthController();
 
   @override
-  void onReady() {
-    super.onReady();
+  void onInit() {
+    print('**** onInit AuthController ');
+    _firebaseUser = null;
+    super.onInit();
     // auth is comning from the constants.dart file but it is basically FirebaseAuth.instance.
     // Since we have to use that many times I just made a constant file and declared there
 
@@ -39,11 +45,12 @@ class AuthController extends GetxController {
     // authService.onReady();
   }
 
-  _setInitialScreenFirebaseUser(User? user) {
+  _setInitialScreenFirebaseUser(User? user) async {
     print('_setInitialScreenFirebaseUser');
-    print('Estamos na route: ${Get.routing.current}');
+    print('routes: ${Get.routing.current}');
 
-    if (user == null && Get.routing.current != RoutesPaths.login) {
+    if (user == null) {
+      // if (user == null && Get.routing.current != RoutesPaths.login) {
       print('_setInitialScreenFirebaseUser: user==null');
       print('Indo para a route: login');
 
@@ -52,25 +59,43 @@ class AuthController extends GetxController {
       Get.offAllNamed(
         RoutesPaths.login,
       );
-    } else if (user != null && Get.routing.current != RoutesPaths.home) {
+    } else if (user != null && firebaseUser == null) {
+      // if (user != null && Get.routing.current != RoutesPaths.home) {
+      _firebaseUser = user;
       print('_setInitialScreenFirebaseUser: user!=null');
       print('Indo para a route: home');
+      print('user.uid:${user.uid}');
+      print('user.displayName:${user.displayName ?? "null"}');
+      print('user.email:${user.email ?? "null"}');
+      // print('user.phoneNumber:${user.phoneNumber ?? "null"}');
+      // print('user.photoURL:${user.photoURL ?? "null"}');
+      final userController = Get.put(
+        UserController(firebaseUserUid: user.uid),
+        permanent: true,
+      );
+      bool temp = await userController.getUser();
+
       // if the user exists and logged in the the user is navigated to the HomePage
       // Get.offAll(() => HomePage());
-      Get.offAllNamed(
-        RoutesPaths.home,
-      );
+      if (temp) {
+        Get.offAllNamed(
+          RoutesPaths.home,
+        );
+      } else {
+        signOut();
+      }
     }
   }
 
   _setInitialScreenGoogle(GoogleSignInAccount? googleSignInAccount) {
     print('_setInitialScreenGoogle');
-    print('Estamos na route: ${Get.routing.current}');
+    print('routes: ${Get.routing.current}');
 
     if (googleSignInAccount == null &&
         Get.routing.current != RoutesPaths.login) {
       print('_setInitialScreenGoogle: googleSignInAccount==null');
       print('Indo para a route: login');
+
       // if the user is not found then the user is navigated to the LoginPage
       // Get.offAll(() => LoginPage());
       Get.offAllNamed(
@@ -79,14 +104,19 @@ class AuthController extends GetxController {
     } else if (googleSignInAccount != null &&
         Get.routing.current != RoutesPaths.home) {
       print('_setInitialScreenGoogle: googleSignInAccount!=null');
-      print('Indo para a route: home');
-
+      // print('Indo para a route: home');
+      print('user.id:${googleSignInAccount.id}');
+      print(
+          'user.serverAuthCode:${googleSignInAccount.serverAuthCode ?? "null"}');
+      print('user.displayName:${googleSignInAccount.displayName ?? "null"}');
+      print('user.email:${googleSignInAccount.email}');
+      print('user.photoUrl:${googleSignInAccount.photoUrl ?? "null"}');
       // print(googleSignInAccount.displayName);
       // if the user exists and logged in the the user is navigated to the HomePage
       // Get.offAll(() => HomePage());
-      Get.offAllNamed(
-        RoutesPaths.home,
-      );
+      // Get.offAllNamed(
+      //   RoutesPaths.home,
+      // );
     }
   }
 
@@ -132,6 +162,7 @@ class AuthController extends GetxController {
   // }
 
   void signOut() async {
+    _firebaseUser = null;
     authService.signOut();
     // await googleSign.disconnect();
     // await firebaseAuth.signOut();

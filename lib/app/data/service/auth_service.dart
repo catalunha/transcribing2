@@ -31,9 +31,10 @@ class AuthService extends GetxService {
   //   // // ever(googleSignInAccount, _setInitialScreenGoogle);
   // }
 
-  startService(
-      {required Function(User?) setInitialScreenFirebaseUser,
-      required Function(GoogleSignInAccount?) setInitialScreenGoogle}) {
+  startService({
+    required Function(User?) setInitialScreenFirebaseUser,
+    required Function(GoogleSignInAccount?) setInitialScreenGoogle,
+  }) {
     firebaseUser = Rx<User?>(firebaseAuth.currentUser);
     googleSignInAccount = Rx<GoogleSignInAccount?>(googleSign.currentUser);
 
@@ -129,7 +130,7 @@ class AuthService extends GetxService {
   // }
 
   void signOut() async {
-    await googleSign.disconnect();
     await firebaseAuth.signOut();
+    await googleSign.signOut();
   }
 }
