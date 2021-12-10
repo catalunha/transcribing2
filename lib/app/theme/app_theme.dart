@@ -13,6 +13,13 @@ final ThemeData appThemeDataLight = ThemeData(
 );
 
 final ThemeData appThemeDataDark = ThemeData(
+  brightness: Brightness.dark,
+  primaryColor: Colors.blue,
+  primarySwatch: Colors.green,
+);
+
+/*
+final ThemeData appThemeDataDark = ThemeData(
   primaryColor: Colors.black,
   brightness: Brightness.dark,
   colorScheme: ColorScheme.fromSwatch(
@@ -23,3 +30,4 @@ final ThemeData appThemeDataDark = ThemeData(
     color: Colors.black,
   ),
 );
+*/

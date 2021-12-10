@@ -31,7 +31,7 @@ class DeleteDocument extends StatelessWidget {
                 onTap: onPressed,
                 child: const Icon(
                   AppIconData.delete,
-                  color: Colors.blue,
+                  color: Colors.red,
                 ),
               ),
               // child: IconButton(
@@ -51,7 +51,7 @@ class DeleteDocument extends StatelessWidget {
                 child: Center(
               child: Text(
                 'click in left icon for delete forever',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.red),
               ),
             )),
           ],

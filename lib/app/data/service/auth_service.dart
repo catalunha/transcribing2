@@ -106,12 +106,12 @@ class AuthService extends GetxService {
             .catchError((onErr) => print(onErr));
       }
     } catch (e) {
-      // Get.snackbar(
-      //   "Error in signInWithGoogle",
-      //   e.toString(),
-      //   snackPosition: SnackPosition.BOTTOM,
-      // );
-      // print(e.toString());
+      Get.snackbar(
+        "Error in signInWithGoogle",
+        e.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      print(e.toString());
       throw Exception('Some arbitrary error in signInWithGoogle');
     }
   }

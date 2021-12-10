@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:transcribing2/app/data/model/user_model.dart';
+import 'package:transcribing2/app/modules/user/user_controller.dart';
 
 class UserRepository extends GetxService {
   final FirebaseFirestore _firebaseFirestoreInstance =
@@ -34,5 +35,23 @@ class UserRepository extends GetxService {
     data['id'] = idNew;
     await docRef.doc(idNew).set(data);
     return data;
+  }
+
+  Future<List<UserModel>> getAll() async {
+    QuerySnapshot<Map<String, dynamic>> querySnapshot =
+        await _firebaseFirestoreInstance
+            .collection(UserModel.collection)
+            .where('accessType', arrayContains: 'student')
+            .where('isActive', isEqualTo: true)
+            .get();
+    List<UserModel> userModelList = <UserModel>[];
+    userModelList = querySnapshot.docs
+        .map(
+          (queryDocumentSnapshot) => UserModel.fromMap(
+            queryDocumentSnapshot.data(),
+          ),
+        )
+        .toList();
+    return userModelList;
   }
 }

@@ -9,6 +9,14 @@ import 'package:transcribing2/app/modules/user/user_controller.dart';
 
 import '../../routes.dart';
 
+class AuthBinding implements Bindings {
+  @override
+  void dependencies() {
+    Get.put<AuthService>(AuthService(), permanent: true);
+    Get.put<AuthController>(AuthController(), permanent: true);
+  }
+}
+
 class AuthController extends GetxController {
   final AuthService authService = Get.find<AuthService>();
 

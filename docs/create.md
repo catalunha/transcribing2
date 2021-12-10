@@ -1,4 +1,59 @@
+# instalar CLI
+npm install -g firebase-tools
+firebase login
+firebase init
+"site": "transcribing2",
+firebase deploy --only hosting:transcribing2
+# Adicionar SDK
+npm install firebase
+## usar npm
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyBAQPorlNLvYebJkWP9gRKHSwSwb0JgAtU",
+  authDomain: "transcribe-brintec.firebaseapp.com",
+  projectId: "transcribe-brintec",
+  storageBucket: "transcribe-brintec.appspot.com",
+  messagingSenderId: "392540845943",
+  appId: "1:392540845943:web:7aafa8138d71987acb1372",
+  measurementId: "${config.measurementId}"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+## usar a tag
+
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyBAQPorlNLvYebJkWP9gRKHSwSwb0JgAtU",
+    authDomain: "transcribe-brintec.firebaseapp.com",
+    projectId: "transcribe-brintec",
+    storageBucket: "transcribe-brintec.appspot.com",
+    messagingSenderId: "392540845943",
+    appId: "1:392540845943:web:7aafa8138d71987acb1372",
+    measurementId: "${config.measurementId}"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
 
 # failed in kotlin_version
 ///edit file 

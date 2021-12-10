@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:transcribing2/app/data/model/team_model.dart';
 import 'package:transcribing2/app/data/model/user_model.dart';
 import 'package:transcribing2/app/theme/app_icon.dart';
@@ -23,10 +24,12 @@ class TeamCard extends StatelessWidget {
         children: [
           Align(
             alignment: Alignment.topLeft,
-            child: Text(
-              team.name,
-              // textAlign: TextAlign.start,
-              style: const TextStyle(fontSize: 20),
+            child: Center(
+              child: Text(
+                team.name,
+                // textAlign: TextAlign.start,
+                style: const TextStyle(fontSize: 20),
+              ),
             ),
           ),
           // Text(team.id),
@@ -68,16 +71,13 @@ class TeamCard extends StatelessWidget {
                 }
 
                 _copyToClipboard();
-                final snackBar = SnackBar(
-                    backgroundColor: Colors.green.shade900,
-                    content: Text(
-                      'This email ${userRef.email} is copied',
-                      style: const TextStyle(color: Colors.white),
-                    ));
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                Get.snackbar("Hi", "This email ${userRef.email} is copied");
               },
               icon: userRef.photoURL == null
-                  ? const Icon(AppIconData.undefined)
+                  ? const SizedBox(
+                      height: 58,
+                      width: 58,
+                    )
                   : ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
                       child: Image.network(
@@ -97,12 +97,12 @@ class TeamCard extends StatelessWidget {
   }
 
   Text nameUser(UserRef userRef) {
-    if (userRef.displayName != null && userRef.displayName!.length > 5) {
+    if (userRef.displayName != null && userRef.displayName!.length > 10) {
       return Text(
-        '${userRef.displayName?.substring(0, 6)}...',
+        '${userRef.displayName?.substring(0, 9)}',
       );
     } else {
-      return const Text('...');
+      return Text('${userRef.displayName}');
     }
   }
 }

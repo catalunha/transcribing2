@@ -15,9 +15,16 @@ class TeamPage extends GetView<TeamController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Obx(() => Text('My teams ${controller.teamList.length}')),
+        title: Obx(() => Text('My ${controller.list.length} teams')),
       ),
-      body: buildItens(context),
+      // body: buildItens(context),
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(child: buildItens(context)),
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Create new team.',
         child: const Icon(AppIconData.addInCloud),
@@ -29,28 +36,59 @@ class TeamPage extends GetView<TeamController> {
   }
 
   Widget buildItens(context) {
-    return Obx(
-      () => ListView.builder(
-        itemCount: controller.teamList.length,
-        itemBuilder: (context, index) {
-          TeamModel teamModel = controller.teamList[index];
-          return Container(
-            key: ValueKey(teamModel),
-            child: TeamCard(
-              team: teamModel,
-              widgetList: [
-                IconButton(
-                  tooltip: 'Edit this team.',
-                  icon: const Icon(AppIconData.edit),
-                  onPressed: () {
-                    controller.edit(index);
-                  },
-                ),
-              ],
+    return Obx(() {
+      if (controller.list.isNotEmpty) {
+        List<Widget> listWidget = [];
+        for (var model in controller.list) {
+          listWidget.add(
+            Container(
+              key: ValueKey(model),
+              child: TeamCard(
+                team: model,
+                widgetList: [
+                  IconButton(
+                    tooltip: 'Edit this team.',
+                    icon: const Icon(AppIconData.edit),
+                    onPressed: () {
+                      controller.edit(model.id);
+                    },
+                  ),
+                ],
+              ),
             ),
           );
-        },
-      ),
-    );
+        }
+        return Column(
+          children: listWidget,
+        );
+      } else {
+        return const Center(child: CircularProgressIndicator());
+      }
+    });
   }
+
+  // return Obx(
+  //   () => ListView.builder(
+  //     itemCount: controller.list.length,
+  //     itemBuilder: (context, index) {
+  //       TeamModel teamModel = controller.list[index];
+  //       return Container(
+  //         key: ValueKey(teamModel),
+  //         child: TeamCard(
+  //           team: teamModel,
+  //           widgetList: [
+  //             IconButton(
+  //               tooltip: 'Edit this team.',
+  //               icon: const Icon(AppIconData.edit),
+  //               onPressed: () {
+  //                 controller.edit(index);
+  //               },
+  //             ),
+  //           ],
+  //         ),
+  //       );
+  //     },
+  //   ),
+  // );
+
 }

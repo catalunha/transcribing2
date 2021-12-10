@@ -25,14 +25,42 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="transcribing2">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <meta name="google-signin-client_id" content="392540845943-kdhe3ai4d2rppvv31jf2jq3vjsmv9hb7.apps.googleusercontent.com">
 
   <title>transcribing2</title>
   <link rel="manifest" href="manifest.json">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.8.335/pdf.min.js"></script>
+
 </head>
 <body>
-  <!-- This script installs service_worker.js to provide PWA functionality to
+ <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
+       <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-analytics.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-storage.js"></script>
+     <script src="https://apis.google.com/js/platform.js" async defer></script>
+     <script>
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+  apiKey: "AIzaSyBAQPorlNLvYebJkWP9gRKHSwSwb0JgAtU",
+  authDomain: "transcribe-brintec.firebaseapp.com",
+  projectId: "transcribe-brintec",
+  storageBucket: "transcribe-brintec.appspot.com",
+  messagingSenderId: "392540845943",
+  appId: "1:392540845943:web:7aafa8138d71987acb1372",
+};
+    
+     // Initialize Firebase
+     firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+    </script>
   <script>
     var serviceWorkerVersion = null;
     var scriptLoaded = false;

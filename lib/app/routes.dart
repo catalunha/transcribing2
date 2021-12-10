@@ -1,8 +1,10 @@
 import 'package:get/get.dart';
-import 'package:transcribing2/app/modules/auth/auth_binding.dart';
-import 'package:transcribing2/app/modules/team/team_addedit.dart';
-import 'package:transcribing2/app/modules/team/team_binding.dart';
-import 'package:transcribing2/app/modules/team/team_page.dart';
+import 'modules/auth/auth_controller.dart';
+import 'modules/search_user/search_user_.dart';
+import 'modules/search_user/search_user_controller.dart';
+import 'modules/team/team_addedit.dart';
+import 'modules/team/team_controller.dart';
+import 'modules/team/team_page.dart';
 
 import 'modules/home/home_page.dart';
 import 'modules/login/login_page.dart';
@@ -14,6 +16,7 @@ abstract class RoutesPaths {
   static const home = '/home';
   static const team = '/team';
   static const teamAddEdit = '/teamAddEdit';
+  static const searchUser = '/searchUser';
 }
 
 class RoutesPages {
@@ -25,7 +28,7 @@ class RoutesPages {
     ),
     GetPage(
       name: RoutesPaths.login,
-      page: () => LoginPage(),
+      page: () => const LoginPage(),
       // binding: LoginBinding(),
     ),
     GetPage(
@@ -40,8 +43,13 @@ class RoutesPages {
     ),
     GetPage(
       name: RoutesPaths.teamAddEdit,
-      page: () => const TeamAddEdit(),
+      page: () => TeamAddEdit(),
       // binding: TeamBinding(),
+    ),
+    GetPage(
+      name: RoutesPaths.searchUser,
+      page: () => SearchUser(),
+      binding: SearchUserBinding(),
     ),
   ];
 }
