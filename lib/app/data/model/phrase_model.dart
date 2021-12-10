@@ -1,11 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-
-import 'package:transcribe/user/controller/user_model.dart';
+import 'package:transcribing2/app/data/model/user_model.dart';
 
 class PhraseModel {
-  static const String collection = 'phrase';
+  static const String collection = 'phrases';
   final String id;
 
   final UserRef teacher;
@@ -14,7 +13,6 @@ class PhraseModel {
   final String phraseAudio;
 
   final bool isArchived;
-  final bool isDeleted;
 
   final String? phraseImage;
   final List<String>? phraseListImage;
@@ -25,7 +23,6 @@ class PhraseModel {
     required this.phraseList,
     required this.phraseAudio,
     this.isArchived = false,
-    this.isDeleted = false,
     this.phraseImage,
     this.phraseListImage,
   });
@@ -37,7 +34,6 @@ class PhraseModel {
     List<String>? phraseList,
     String? phraseAudio,
     bool? isArchived,
-    bool? isDeleted,
     String? phraseImage,
     List<String>? phraseListImage,
   }) {
@@ -48,7 +44,6 @@ class PhraseModel {
       phraseList: phraseList ?? this.phraseList,
       phraseAudio: phraseAudio ?? this.phraseAudio,
       isArchived: isArchived ?? this.isArchived,
-      isDeleted: isDeleted ?? this.isDeleted,
       phraseImage: phraseImage ?? this.phraseImage,
       phraseListImage: phraseListImage ?? this.phraseListImage,
     );
@@ -66,7 +61,6 @@ class PhraseModel {
       'phraseList': phraseList.cast<String>(),
       'phraseAudio': phraseAudio,
       'isArchived': isArchived,
-      'isDeleted': isDeleted,
       if (phraseImage != null) 'phraseImage': phraseImage,
       if (phraseListImage != null)
         'phraseListImage': phraseListImage!.cast<String>(),
@@ -81,7 +75,6 @@ class PhraseModel {
       phraseList: List<String>.from(map['phraseList']),
       phraseAudio: map['phraseAudio'],
       isArchived: map['isArchived'],
-      isDeleted: map['isDeleted'],
       phraseImage: map['phraseImage'],
       phraseListImage: map['phraseListImage']?.cast<String>() ?? null,
 
@@ -98,7 +91,7 @@ class PhraseModel {
 
   @override
   String toString() {
-    return 'PhraseModel(teacher: $teacher, group: $group, phraseList: $phraseList, phraseAudio: $phraseAudio, isArchived: $isArchived, isDeleted: $isDeleted, phraseImage: $phraseImage,  phraseListImage: $phraseListImage)';
+    return 'PhraseModel(teacher: $teacher, group: $group, phraseList: $phraseList, phraseAudio: $phraseAudio, isArchived: $isArchived, phraseImage: $phraseImage,  phraseListImage: $phraseListImage)';
   }
 
   @override
@@ -112,7 +105,6 @@ class PhraseModel {
         listEquals(other.phraseList, phraseList) &&
         other.phraseAudio == phraseAudio &&
         other.isArchived == isArchived &&
-        other.isDeleted == isDeleted &&
         other.phraseImage == phraseImage &&
         listEquals(other.phraseListImage, phraseListImage);
   }
@@ -125,7 +117,6 @@ class PhraseModel {
         phraseList.hashCode ^
         phraseAudio.hashCode ^
         isArchived.hashCode ^
-        isDeleted.hashCode ^
         phraseImage.hashCode ^
         phraseListImage.hashCode;
   }
