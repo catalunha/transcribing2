@@ -41,10 +41,7 @@ class HomePage extends StatelessWidget {
                   leading: const Icon(Icons.text_fields_rounded),
                   title: const Text('Create a sentence'),
                   onTap: () async {
-                    Navigator.pushNamed(
-                      context,
-                      '/phrase_list',
-                    );
+                    Get.toNamed('/phrase');
                   },
                 ),
               ),

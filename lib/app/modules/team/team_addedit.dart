@@ -36,7 +36,7 @@ class _TeamAddEditState extends State<TeamAddEdit> {
       ),
       body: SingleChildScrollView(
         child: Form(
-          autovalidateMode: AutovalidateMode.onUserInteraction,
+          // autovalidateMode: AutovalidateMode.onUserInteraction,
           key: controller.formKey,
           child: Column(
             mainAxisSize: MainAxisSize.min,

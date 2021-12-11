@@ -1,4 +1,7 @@
 import 'package:get/get.dart';
+import 'package:transcribing2/app/modules/phrase/phrase_addedit.dart';
+import 'package:transcribing2/app/modules/phrase/phrase_controller.dart';
+import 'package:transcribing2/app/modules/phrase/phrase_page.dart';
 import 'modules/auth/auth_controller.dart';
 import 'modules/search_user/search_user_.dart';
 import 'modules/search_user/search_user_controller.dart';
@@ -17,6 +20,8 @@ abstract class RoutesPaths {
   static const team = '/team';
   static const teamAddEdit = '/teamAddEdit';
   static const searchUser = '/searchUser';
+  static const phrase = '/phrase';
+  static const phraseAddEdit = '/phraseAddEdit';
 }
 
 class RoutesPages {
@@ -29,12 +34,10 @@ class RoutesPages {
     GetPage(
       name: RoutesPaths.login,
       page: () => const LoginPage(),
-      // binding: LoginBinding(),
     ),
     GetPage(
       name: RoutesPaths.home,
       page: () => HomePage(),
-      // binding: HomeBinding(),
     ),
     GetPage(
       name: RoutesPaths.team,
@@ -44,12 +47,20 @@ class RoutesPages {
     GetPage(
       name: RoutesPaths.teamAddEdit,
       page: () => TeamAddEdit(),
-      // binding: TeamBinding(),
     ),
     GetPage(
       name: RoutesPaths.searchUser,
       page: () => SearchUser(),
       binding: SearchUserBinding(),
+    ),
+    GetPage(
+      name: RoutesPaths.phrase,
+      page: () => const PhrasePage(),
+      binding: PhraseBinding(),
+    ),
+    GetPage(
+      name: RoutesPaths.phraseAddEdit,
+      page: () => PhraseAddEdit(),
     ),
   ];
 }

@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:transcribing2/app/data/model/user_model.dart';
 
 class PhraseModel {
-  static const String collection = 'phrases';
+  static const String collection = 'phrase';
   final String id;
 
   final UserRef teacher;
