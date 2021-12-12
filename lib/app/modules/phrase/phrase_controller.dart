@@ -11,7 +11,7 @@ class PhraseBinding implements Bindings {
   void dependencies() {
     Get.lazyPut<PhraseRepository>(() => PhraseRepository());
     Get.lazyPut<PhraseController>(() => PhraseController());
-    Get.lazyPut<UploadController>(() => UploadController());
+    // Get.lazyPut<UploadController>(() => UploadController());
   }
 }
 
@@ -26,6 +26,7 @@ class PhraseController extends GetxController {
   bool addOrEdit = false;
   final formKey = GlobalKey<FormState>();
   bool isExtraFieldsValid = false;
+  // Rx<double> uploadPercentage2 = 0.0.obs;
 
   @override
   void onInit() {
@@ -85,13 +86,33 @@ class PhraseController extends GetxController {
   void formOnChangeField({
     String? phrase,
     String? group,
+    String? phraseAudio,
   }) {
-    _model = _model.value
-        .copyWith(
-          phraseList: phrase?.split('\n'),
-          group: group,
-        )
-        .obs;
+    // _model = _model.value
+    //     .copyWith(
+    //       phraseList: phrase?.split('\n'),
+    //       group: group,
+    //       phraseAudio: phraseAudio,
+    //     )
+    //     .obs;
+    // _model.update((value) {
+    //   value = value!.copyWith(
+    //     phraseList: phrase?.split('\n'),
+    //     group: group,
+    //     phraseAudio: phraseAudio,
+    //   );
+    // });
+    _model.update((value) {
+      if (phrase != null) {
+        value!.phraseList = phrase.split('\n');
+      }
+      if (group != null) {
+        value!.group = group;
+      }
+      if (phraseAudio != null) {
+        value!.phraseAudio = phraseAudio;
+      }
+    });
   }
 
   validateExtraFields() {

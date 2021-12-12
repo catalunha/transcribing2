@@ -5,17 +5,22 @@ import 'package:path/path.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
+import 'package:transcribing2/app/modules/phrase/phrase_controller.dart';
 import 'package:transcribing2/app/modules/user/user_controller.dart';
 
 class UploadController extends GetxController {
   Rx<String> fileName = ''.obs;
-  Rx<double> uploadPercentage = 0.0.obs;
+  Rx<int> uploadPercentage = 0.obs;
   Rx<String> urlForDownload = ''.obs;
+  Rx<bool> isDownloadComplet = false.obs;
 
   late File? file;
   late FilePickerResult? pickFile;
   late Uint8List? fileBytes;
   late Rx<TaskSnapshot> taskSnapshot;
+
+  late final Function(String) externalGetUrl;
+
   Future<bool> selectFileUpload() async {
     restartingStateUploadAction();
     bool status = await selectFile();
@@ -31,9 +36,9 @@ class UploadController extends GetxController {
   }
 
   restartingStateUploadAction() {
-    fileName = ''.obs;
-    uploadPercentage = 0.0.obs;
-    urlForDownload = ''.obs;
+    fileName.value = '';
+    uploadPercentage.value = 0;
+    urlForDownload.value = '';
   }
 
   Future<bool> selectFile() async {
@@ -59,7 +64,7 @@ class UploadController extends GetxController {
 
   void _fileInWeb() {
     fileBytes = pickFile!.files.first.bytes;
-    fileName = pickFile!.files.first.name.obs;
+    fileName.value = pickFile!.files.first.name;
     // print('$fileName');
   }
 
@@ -68,19 +73,34 @@ class UploadController extends GetxController {
 
     file = File(path);
     fileBytes = file!.readAsBytesSync();
-    fileName = basename(file!.path).obs;
+    fileName.value = basename(file!.path);
     // print('$fileName');
   }
 
-  upload(String pathInFirestore) {
+  upload(String pathInFirestore) async {
+    final PhraseController _phraseController = Get.find<PhraseController>();
+
     // taskSnapshot.bindStream(uploadingBytes(pathInFirestore)!.snapshotEvents);
-    Stream<TaskSnapshot> streamTaskSnapshot =
-        uploadingBytes(pathInFirestore)!.snapshotEvents;
-    streamTaskSnapshot.listen((event) {
+    UploadTask uploadTask = uploadingBytes(pathInFirestore)!;
+    Stream<TaskSnapshot> streamTaskSnapshot = uploadTask.snapshotEvents;
+    await streamTaskSnapshot.listen((event) {
       final progress = event.bytesTransferred / event.totalBytes;
-      uploadPercentage = (progress * 100).obs;
+      uploadPercentage.value = (progress * 100).toInt();
+      // _phraseController.uploadPercentage2.value = (progress * 100);
       print('$uploadPercentage %');
     });
+    final snapshot = await uploadTask.whenComplete(() {});
+    urlForDownload.value = await snapshot.ref.getDownloadURL();
+    isDownloadComplet.toggle();
+    sendUrlForExternalController();
+  }
+
+  setExternalGetUrl(Function(String) getUrl) {
+    externalGetUrl = getUrl;
+  }
+
+  sendUrlForExternalController() {
+    externalGetUrl(urlForDownload.value);
   }
 
   UploadTask? uploadingBytes(String pathInFirestore) {

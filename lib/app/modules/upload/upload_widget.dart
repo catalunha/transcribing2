@@ -4,12 +4,13 @@ import 'package:transcribing2/app/modules/upload/upload_controller.dart';
 import 'package:transcribing2/app/theme/app_icon.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+// class UploadWidget extends GetView<UploadController> {
 class UploadWidget extends StatelessWidget {
-  UploadController controller = Get.find<UploadController>();
-
+  // UploadController controller = Get.find<UploadController>();
+  UploadController controller = Get.put(UploadController());
   final String label;
   final bool requiredField;
-  final VoidCallback setStateWidget;
+  final Function(String) getUrl;
   final String pathInFirestore;
   // final VoidCallback uploadingFile;
   // final double percentageOfUpload;
@@ -19,7 +20,7 @@ class UploadWidget extends StatelessWidget {
     Key? key,
     required this.label,
     required this.requiredField,
-    required this.setStateWidget,
+    required this.getUrl,
     required this.pathInFirestore,
     // required this.uploadingFile,
     // required this.percentageOfUpload,
@@ -55,11 +56,18 @@ class UploadWidget extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 8),
-                child: Icon(
-                  AppIconData.attachFile,
-                  color: Colors.blue,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: GestureDetector(
+                  onTap: () async {
+                    await controller.selectFileUpload();
+                    controller.upload(pathInFirestore);
+                    controller.setExternalGetUrl(getUrl);
+                  },
+                  child: const Icon(
+                    AppIconData.search,
+                    color: Colors.blue,
+                  ),
                 ),
               ),
               Container(
@@ -67,27 +75,37 @@ class UploadWidget extends StatelessWidget {
                 height: 48,
                 color: Colors.blueAccent,
               ),
+              const SizedBox(
+                width: 10,
+              ),
               Expanded(
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ListTile(
-                        leading: const Icon(AppIconData.search),
-                        title: const Text('1º Select the file'),
-                        // subtitle: Text(selectedLocalFileName),
-                        onTap: () async {
-                          await controller.selectFileUpload();
-                          controller.upload(pathInFirestore);
-                          setStateWidget();
-                        }),
+                    // ListTile(
+                    //   leading: const Icon(AppIconData.search),
+                    //   title: const Text('1º Select the file'),
+                    //   // subtitle: Text(selectedLocalFileName),
+                    //   onTap: () async {
+                    //     await controller.selectFileUpload();
+                    //     controller.upload(pathInFirestore);
+                    //     setStateWidget();
+                    //   },
+                    // ),
                     Obx(() {
-                      return Text('${controller.fileName}');
+                      return Text('File name: ${controller.fileName.value}');
                     }),
                     Obx(() {
-                      return Text('${controller.uploadPercentage}');
+                      return Text(
+                          'Percentage: ${controller.uploadPercentage} %');
                     }),
                     Obx(() {
                       return Text('${controller.urlForDownload}');
+                    }),
+                    Obx(() {
+                      return Text(
+                          'Download: ${controller.isDownloadComplet.value ? "completed" : ""}');
                     }),
                     // ListTile(
                     //   leading: const Icon(AppIconData.saveInCloud),

@@ -7,15 +7,15 @@ class PhraseModel {
   static const String collection = 'phrase';
   final String id;
 
-  final UserRef teacher;
-  final String group;
-  final List<String> phraseList;
-  final String phraseAudio;
+  UserRef teacher;
+  String group;
+  List<String> phraseList;
+  String phraseAudio;
 
-  final bool isArchived;
+  bool isArchived;
 
-  final String? phraseImage;
-  final List<String>? phraseListImage;
+  String? phraseImage;
+  List<String>? phraseListImage;
   PhraseModel({
     required this.id,
     required this.teacher,
