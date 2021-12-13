@@ -7,3 +7,8 @@ Uma versão do Transcribing com GetX
 flutter build web --web-renderer canvaskit
 
 firebase deploy --only hosting:transcribing2
+
+
+catalunhamj@outlook.com
+xbox123456
+mrld4catsgamers

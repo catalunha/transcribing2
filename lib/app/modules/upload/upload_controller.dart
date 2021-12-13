@@ -8,28 +8,82 @@ import 'package:get/get.dart';
 import 'package:transcribing2/app/modules/phrase/phrase_controller.dart';
 import 'package:transcribing2/app/modules/user/user_controller.dart';
 
+enum UploadStage {
+  analyzingStorage,
+  existFileInStorage,
+  notExistFileInStorage,
+  startingUpload,
+  searchingFileLocally,
+  foundLocallyFile,
+  erroFetchFileLocally,
+  connectingWithStorage,
+  sendingFileToStorage,
+  errorSendingFileToStorage,
+  shippingCompleted,
+  gettingRrl,
+  uploadCompleted,
+}
+
+extension UploadStageExtension on UploadStage {
+  String get name {
+    return [
+      'analyzing storage',
+      'exist file on storage',
+      'not exist file in storage',
+      'starting upload',
+      'Searching File Locally',
+      'Found Locally file',
+      'error fetch File Locally',
+      'connecting with Storage',
+      'sending file to storage',
+      'Error When Sending File To Storage',
+      'shipping completed',
+      'getting url',
+      'upload completed',
+    ][index];
+  }
+  // String name() {
+  //   return toString().split('.').last;
+  // }
+}
+
 class UploadController extends GetxController {
   Rx<String> fileName = ''.obs;
   Rx<int> uploadPercentage = 0.obs;
   Rx<String> urlForDownload = ''.obs;
   Rx<bool> isDownloadComplet = false.obs;
+  Rx<UploadStage> uploadStage = UploadStage.analyzingStorage.obs;
+
+  // get uploadStage => _uploadStage.value;
 
   late File? file;
   late FilePickerResult? pickFile;
   late Uint8List? fileBytes;
   late Rx<TaskSnapshot> taskSnapshot;
+  String pathInFirestore = '';
+  late Function(String) externalGetUrl;
 
-  late final Function(String) externalGetUrl;
+  startUpload() async {
+    uploadStage.value = UploadStage.startingUpload;
+    uploadStage.value = UploadStage.searchingFileLocally;
+
+    bool selectedFile = await selectFileUpload();
+    if (selectedFile) {
+      uploadStage.value = UploadStage.foundLocallyFile;
+
+      upload(pathInFirestore);
+    } else {
+      uploadStage.value = UploadStage.erroFetchFileLocally;
+    }
+  }
 
   Future<bool> selectFileUpload() async {
     restartingStateUploadAction();
     bool status = await selectFile();
 
     if (status) {
-      print('upload Ok.');
       return true;
     } else {
-      print('upload restart.');
       restartingStateUploadAction();
       return false;
     }
@@ -48,7 +102,6 @@ class UploadController extends GetxController {
     );
     if (pickFile?.files.first == null) return false;
     _choiceEnviroment();
-    // print('$fileName');
     return true;
   }
 
@@ -65,7 +118,6 @@ class UploadController extends GetxController {
   void _fileInWeb() {
     fileBytes = pickFile!.files.first.bytes;
     fileName.value = pickFile!.files.first.name;
-    // print('$fileName');
   }
 
   void _fileInAndroid() async {
@@ -74,14 +126,21 @@ class UploadController extends GetxController {
     file = File(path);
     fileBytes = file!.readAsBytesSync();
     fileName.value = basename(file!.path);
-    // print('$fileName');
   }
 
   upload(String pathInFirestore) async {
-    final PhraseController _phraseController = Get.find<PhraseController>();
+    uploadStage.value = UploadStage.connectingWithStorage;
+
+    // final PhraseController _phraseController = Get.find<PhraseController>();
 
     // taskSnapshot.bindStream(uploadingBytes(pathInFirestore)!.snapshotEvents);
-    UploadTask uploadTask = uploadingBytes(pathInFirestore)!;
+    UploadTask? uploadTask = uploadingBytes(pathInFirestore);
+    if (uploadTask != null) {
+      uploadStage.value = UploadStage.sendingFileToStorage;
+    } else {
+      uploadStage.value = UploadStage.errorSendingFileToStorage;
+      return null;
+    }
     Stream<TaskSnapshot> streamTaskSnapshot = uploadTask.snapshotEvents;
     await streamTaskSnapshot.listen((event) {
       final progress = event.bytesTransferred / event.totalBytes;
@@ -89,23 +148,28 @@ class UploadController extends GetxController {
       // _phraseController.uploadPercentage2.value = (progress * 100);
       print('$uploadPercentage %');
     });
-    final snapshot = await uploadTask.whenComplete(() {});
+    final snapshot = await uploadTask.whenComplete(() {
+      uploadStage.value = UploadStage.shippingCompleted;
+    });
+    uploadStage.value = UploadStage.gettingRrl;
     urlForDownload.value = await snapshot.ref.getDownloadURL();
+    uploadStage.value = UploadStage.uploadCompleted;
     isDownloadComplet.toggle();
-    sendUrlForExternalController();
-  }
 
-  setExternalGetUrl(Function(String) getUrl) {
-    externalGetUrl = getUrl;
-  }
-
-  sendUrlForExternalController() {
     externalGetUrl(urlForDownload.value);
+    // sendUrlForExternalController();
   }
+
+  // setExternalGetUrl(Function(String) getUrl) {
+  //   externalGetUrl = getUrl;
+  // }
+
+  // sendUrlForExternalController() {
+  //   externalGetUrl(urlForDownload.value);
+  // }
 
   UploadTask? uploadingBytes(String pathInFirestore) {
     UploadTask? task;
-
     try {
       final ref = FirebaseStorage.instance.ref('$pathInFirestore/$fileName');
       task = ref.putData(fileBytes!);
@@ -114,5 +178,13 @@ class UploadController extends GetxController {
       return null;
     }
     return task;
+  }
+
+  checkFileInStorage(String urlStorage) {
+    if (urlStorage.isEmpty) {
+      uploadStage.value = UploadStage.notExistFileInStorage;
+    } else {
+      uploadStage.value = UploadStage.existFileInStorage;
+    }
   }
 }

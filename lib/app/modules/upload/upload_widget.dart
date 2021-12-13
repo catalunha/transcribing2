@@ -15,6 +15,7 @@ class UploadWidget extends StatelessWidget {
   // final VoidCallback uploadingFile;
   // final double percentageOfUpload;
   // final String urlForDownload;
+  final String initialUrl;
 
   UploadWidget({
     Key? key,
@@ -24,11 +25,15 @@ class UploadWidget extends StatelessWidget {
     required this.pathInFirestore,
     // required this.uploadingFile,
     // required this.percentageOfUpload,
-    // required this.urlForDownload,
+    required this.initialUrl,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    controller.checkFileInStorage(initialUrl);
+    controller.pathInFirestore = pathInFirestore;
+    controller.externalGetUrl = getUrl;
+
     return Padding(
       padding: const EdgeInsets.only(top: 5, bottom: 5),
       child: Column(
@@ -60,9 +65,13 @@ class UploadWidget extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: GestureDetector(
                   onTap: () async {
-                    await controller.selectFileUpload();
-                    controller.upload(pathInFirestore);
-                    controller.setExternalGetUrl(getUrl);
+                    controller.startUpload();
+                    // bool selectedFile = await controller.selectFileUpload();
+                    // if(selectedFile){
+
+                    // controller.upload(pathInFirestore);
+                    // }
+                    // controller.setExternalGetUrl(getUrl);
                   },
                   child: const Icon(
                     AppIconData.search,
@@ -94,19 +103,46 @@ class UploadWidget extends StatelessWidget {
                     //   },
                     // ),
                     Obx(() {
-                      return Text('File name: ${controller.fileName.value}');
+                      Widget info = const SizedBox();
+                      if (controller.uploadStage.value ==
+                          UploadStage.existFileInStorage) {
+                        info = const Text(
+                            '* There is already an audio registered. If you want to change this click on the icon and look for another file.');
+                      } else {
+                        info = Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Stage: ${controller.uploadStage.value.name}'),
+                            Text('File name: ${controller.fileName.value}'),
+                            Text(
+                                'Percentage: ${controller.uploadPercentage} %'),
+                            // Text(
+                            //     'Download: ${controller.isDownloadComplet.value ? "completed" : ""}')
+                          ],
+                        );
+                      }
+                      return info;
                     }),
-                    Obx(() {
-                      return Text(
-                          'Percentage: ${controller.uploadPercentage} %');
-                    }),
-                    Obx(() {
-                      return Text('${controller.urlForDownload}');
-                    }),
-                    Obx(() {
-                      return Text(
-                          'Download: ${controller.isDownloadComplet.value ? "completed" : ""}');
-                    }),
+                    // Obx(() {
+                    //   return Text('File name: ${controller.fileName.value}');
+                    // }),
+                    // Obx(() {
+                    //   return Text(
+                    //       'Percentage: ${controller.uploadPercentage} %');
+                    // }),
+                    // // Obx(() {
+                    // //   return Text('${controller.urlForDownload}');
+                    // // }),
+                    // Obx(() {
+                    //   return Text(
+                    //       'Download: ${controller.isDownloadComplet.value ? "completed" : ""}');
+                    // }),
+                    // Obx(() {
+                    //   return Text(
+                    //       'Estágio: ${controller.uploadStage.value.name}');
+                    // }),
                     // ListTile(
                     //   leading: const Icon(AppIconData.saveInCloud),
                     //   title: const Text('2º Send for cloud'),

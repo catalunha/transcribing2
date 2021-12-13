@@ -90,12 +90,11 @@ class PhraseAddEdit extends GetView<PhraseController> {
             UploadWidget(
               label: 'Send the audio',
               requiredField: true,
+              initialUrl: controller.model.phraseAudio,
               pathInFirestore:
                   '${controller.model.teacher.id}/${controller.model.id}',
               getUrl: (url) {
-                print('setState in phraseAddEdit');
                 controller.formOnChangeField(phraseAudio: url);
-                // setState(() {});
               },
             ),
             Obx(() {
