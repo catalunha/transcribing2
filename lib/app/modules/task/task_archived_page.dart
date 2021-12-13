@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:transcribing2/app/data/model/task_model.dart';
-import 'package:transcribing2/app/modules/task/task_card.dart';
 import 'package:transcribing2/app/theme/app_icon.dart';
-
+import 'task_card.dart';
 import 'task_controller.dart';
 
-class TaskPage extends GetView<TaskController> {
-  // final List<TaskModel> taskIList;
+class TaskArchivedPage extends GetView<TaskController> {
+  // final IList<TaskModel> taskIList;
   // final Function(String) onArchive;
   // final Function(String) onDelete;
-  const TaskPage({
+  const TaskArchivedPage({
     Key? key,
     // required this.taskIList,
     // required this.onArchive,
@@ -21,16 +19,7 @@ class TaskPage extends GetView<TaskController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My tasks'),
-        actions: [
-          IconButton(
-            tooltip: 'Archived sentences',
-            icon: const Icon(AppIconData.box),
-            onPressed: () {
-              Get.toNamed('/taskArchived');
-            },
-          )
-        ],
+        title: const Text('My tasks archived'),
       ),
       body: Column(
         children: [
@@ -41,22 +30,15 @@ class TaskPage extends GetView<TaskController> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        tooltip: 'Create new task.',
-        child: const Icon(AppIconData.addInCloud),
-        onPressed: () {
-          controller.add();
-        },
-      ),
     );
   }
 
   Widget buildItens(context) {
     return Obx(() {
-      if (controller.list.isNotEmpty) {
+      if (controller.listArchived.isNotEmpty) {
         List<Widget> list = [];
 
-        for (var model in controller.list) {
+        for (var model in controller.listArchived) {
           list.add(Container(
             key: ValueKey(model),
             child: TaskCard(
@@ -76,9 +58,17 @@ class TaskPage extends GetView<TaskController> {
                 ),
                 IconButton(
                   tooltip: 'Archive this task.',
-                  icon: const Icon(AppIconData.inbox),
+                  icon: const Icon(AppIconData.outbox),
                   onPressed: () {
-                    controller.archive(model.id, true);
+                    controller.archive(model.id, false);
+                    Get.back();
+                  },
+                ),
+                IconButton(
+                  tooltip: 'Delete this task',
+                  icon: const Icon(AppIconData.delete),
+                  onPressed: () {
+                    controller.delete(model.id);
                   },
                 ),
                 // IconButton(
@@ -102,7 +92,7 @@ class TaskPage extends GetView<TaskController> {
       } else {
         return const ListTile(
           leading: Icon(AppIconData.smile),
-          title: Text("Ops. You don't have any task."),
+          title: Text("Ops. You don't have any task archived."),
         );
       }
     });

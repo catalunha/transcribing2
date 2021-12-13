@@ -19,6 +19,7 @@ class TaskController extends GetxController {
   final TaskRepository _repository = Get.find<TaskRepository>();
 
   RxList<TaskModel> list = <TaskModel>[].obs;
+  RxList<TaskModel> listArchived = <TaskModel>[].obs;
 
   late Rx<TaskModel> _model;
   get model => _model.value;
@@ -31,6 +32,7 @@ class TaskController extends GetxController {
   void onInit() {
     super.onInit();
     list.bindStream(_repository.streamAll());
+    listArchived.bindStream(_repository.streamAllArchived());
   }
 
   void add() {
@@ -52,14 +54,12 @@ class TaskController extends GetxController {
   //   Get.toNamed('/taskAddEdit');
   // }
 
-  delete() {
-    _repository.delete(_model.value.id);
-    Get.back();
+  delete(String id) {
+    _repository.delete(id);
   }
 
   archive(String id, bool status) {
     _repository.update(id, {'isArchived': status});
-    Get.back();
   }
 
   setTeam(TeamModel team) {

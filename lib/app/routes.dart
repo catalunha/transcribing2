@@ -7,6 +7,7 @@ import 'package:transcribing2/app/modules/search_phrase/search_phrase_page.dart'
 import 'package:transcribing2/app/modules/search_team/search_team_controller.dart';
 import 'package:transcribing2/app/modules/search_team/search_team_page.dart';
 import 'package:transcribing2/app/modules/task/task_addedit.dart';
+import 'package:transcribing2/app/modules/task/task_archived_page.dart';
 import 'package:transcribing2/app/modules/task/task_controller.dart';
 import 'package:transcribing2/app/modules/task/task_page.dart';
 import 'modules/auth/auth_controller.dart';
@@ -30,6 +31,7 @@ abstract class RoutesPaths {
   static const phrase = '/phrase';
   static const phraseAddEdit = '/phraseAddEdit';
   static const task = '/task';
+  static const taskArchived = '/taskArchived';
   static const taskAddEdit = '/taskAddEdit';
   static const searchTeam = '/searchTeam';
   static const searchPhrase = '/searchPhrase';
@@ -77,6 +79,10 @@ class RoutesPages {
       name: RoutesPaths.task,
       page: () => const TaskPage(),
       binding: TaskBinding(),
+    ),
+    GetPage(
+      name: RoutesPaths.taskArchived,
+      page: () => const TaskArchivedPage(),
     ),
     GetPage(
       name: RoutesPaths.taskAddEdit,

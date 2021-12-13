@@ -14,7 +14,28 @@ class TaskRepository {
     Query<Map<String, dynamic>> collRef;
     collRef = _firebaseFirestoreInstance
         .collection(TaskModel.collection)
-        .where('team.teacher.id', isEqualTo: userController.userModel.id);
+        .where('team.teacher.id', isEqualTo: userController.userModel.id)
+        .where('isArchived', isEqualTo: false);
+
+    Stream<QuerySnapshot<Map<String, dynamic>>> streamQuerySnapshot =
+        collRef.snapshots();
+
+    Stream<List<TaskModel>> streamList = streamQuerySnapshot.map(
+        (querySnapshot) => querySnapshot.docs
+            .map((docSnapshot) => TaskModel.fromMap(docSnapshot.data()))
+            .toList());
+
+    return streamList;
+  }
+
+  Stream<List<TaskModel>> streamAllArchived() {
+    UserController userController = Get.find<UserController>();
+
+    Query<Map<String, dynamic>> collRef;
+    collRef = _firebaseFirestoreInstance
+        .collection(TaskModel.collection)
+        .where('team.teacher.id', isEqualTo: userController.userModel.id)
+        .where('isArchived', isEqualTo: true);
 
     Stream<QuerySnapshot<Map<String, dynamic>>> streamQuerySnapshot =
         collRef.snapshots();
