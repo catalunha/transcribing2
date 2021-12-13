@@ -7,11 +7,11 @@ class TeamModel {
   static const String collection = 'teams';
 
   final String id;
-  final UserRef teacher;
-  final String name;
+  UserRef teacher;
+  String name;
 
   /// students{userId:UserRef}
-  final Map<String, UserRef> students;
+  Map<String, UserRef> students;
   TeamModel({
     required this.id,
     required this.teacher,
