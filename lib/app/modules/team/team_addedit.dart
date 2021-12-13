@@ -34,17 +34,17 @@ class TeamAddEdit extends GetView<TeamController> {
                       controller.formOnChangeField(name: value);
                     },
                   ),
-                  controller.addOrEdit
-                      ? Container()
-                      : DeleteDocument(
-                          onPressed: controller.delete,
-                        ),
                 ],
               ),
             ),
             SearchUserWidget(
-              label:
-                  '${controller.model.students.length} Students. Click here, for select more.',
+              label: Obx(() => Text(
+                    '${controller.model.students.length} Students. Click here, for select more.',
+                    softWrap: true,
+                    style: const TextStyle(
+                      color: Colors.white,
+                    ),
+                  )),
               userRefList: controller.model.students.values.toList(),
               required: true,
               onDeleteUser: (String value) {
@@ -56,6 +56,11 @@ class TeamAddEdit extends GetView<TeamController> {
                 // setState(() {});
               },
             ),
+            controller.addOrEdit
+                ? Container()
+                : DeleteDocument(
+                    onPressed: controller.delete,
+                  ),
             RequiredId(
               message: 'ID: ${controller.model.id}',
             ),

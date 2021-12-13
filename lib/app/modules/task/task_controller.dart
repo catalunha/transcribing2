@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:transcribing2/app/data/model/phrase_model.dart';
 import 'package:transcribing2/app/data/model/task_model.dart';
+import 'package:transcribing2/app/data/model/team_model.dart';
 import 'package:transcribing2/app/data/repository/task_repository.dart';
+import 'package:transcribing2/app/modules/team/team_addedit.dart';
 import 'package:transcribing2/app/modules/user/user_controller.dart';
 
 class TaskBinding implements Bindings {
@@ -57,6 +60,18 @@ class TaskController extends GetxController {
   archive(String id, bool status) {
     _repository.update(id, {'isArchived': status});
     Get.back();
+  }
+
+  setTeam(TeamModel team) {
+    _model.update((value) {
+      value!.team = team;
+    });
+  }
+
+  setPhrase(PhraseModel phrase) {
+    _model.update((value) {
+      value!.phrase = phrase;
+    });
   }
 
   void formSubmit() {

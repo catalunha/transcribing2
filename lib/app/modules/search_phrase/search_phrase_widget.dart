@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:transcribing2/app/data/model/team_model.dart';
-import 'package:transcribing2/app/modules/team/team_card.dart';
 import 'package:transcribing2/app/theme/app_icon.dart';
 
-class SearchTeamWidget extends StatelessWidget {
-  final String label;
-  // final TeamModel? team;
-  final Widget teamWidget;
+class SearchPhraseWidget extends StatelessWidget {
+  final Widget phraseWidget;
   final IconData icon;
+  final String label;
   final String messageTooltip;
   final bool required;
   // final bool? isFieldValid;
-  const SearchTeamWidget({
+  const SearchPhraseWidget({
     Key? key,
     required this.label,
-    // required this.team,
-    required this.teamWidget,
+    required this.phraseWidget,
     this.icon = AppIconData.people,
-    // required this.search,
     this.required = false,
     this.messageTooltip = '',
     // required this.isFieldValid,
@@ -39,7 +34,7 @@ class SearchTeamWidget extends StatelessWidget {
                 children: [
                   TextButton.icon(
                     onPressed: () {
-                      Get.toNamed('/searchTeam');
+                      Get.toNamed('/searchPhrase');
                     },
                     icon: const Icon(
                       AppIconData.search,
@@ -83,8 +78,9 @@ class SearchTeamWidget extends StatelessWidget {
                 width: 15,
               ),
               Expanded(
-                  // flex: 15,
-                  child: teamWidget),
+                // flex: 15,
+                child: phraseWidget,
+              ),
             ],
           ),
         ],

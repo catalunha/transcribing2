@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:transcribing2/app/data/model/user_model.dart';
+import 'package:transcribing2/app/modules/team/team_controller.dart';
 import 'package:transcribing2/app/theme/app_icon.dart';
 
 class SearchUserWidget extends StatelessWidget {
-  final String label;
+  final Widget label;
   final List<UserRef> userRefList;
   final IconData icon;
   final String messageTooltip;
@@ -57,13 +59,7 @@ class SearchUserWidget extends StatelessWidget {
                       AppIconData.search,
                       color: Colors.white,
                     ),
-                    label: Text(
-                      label,
-                      softWrap: true,
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
+                    label: label,
                   ),
                   required
                       ? const Text(
@@ -98,24 +94,24 @@ class SearchUserWidget extends StatelessWidget {
                 child: Column(
                   children: [
                     SingleChildScrollView(
-                      child: Column(
-                        children: userRefList
-                            .map((e) => listTilePerson(userRef: e))
-                            .toList(),
-                      ),
+                      child: buildItens(context),
                     ),
-                    // isFieldValid ?? true
-                    //     ? Container()
-                    //     : const Align(
-                    //         alignment: Alignment.topLeft,
-                    //         child: Text(
-                    //           'This field cannot be empty.',
-                    //           style: TextStyle(color: Colors.red, fontSize: 12),
-                    //         ),
-                    //       ),
                   ],
                 ),
               ),
+              // Expanded(
+              //   child: Column(
+              //     children: [
+              //       SingleChildScrollView(
+              //         child: Column(
+              //           children: userRefList
+              //               .map((e) => listTilePerson(userRef: e))
+              //               .toList(),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         ],
@@ -123,29 +119,76 @@ class SearchUserWidget extends StatelessWidget {
     );
   }
 
-  Widget listTilePerson({required UserRef? userRef}) {
-    return ListTile(
-      leading: userRef!.photoURL == null
-          ? const SizedBox(
-              height: 58,
-              width: 58,
-            )
-          : ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: Image.network(
-                userRef.photoURL!,
-                height: 58,
-                width: 58,
+  Widget buildItens(context) {
+    TeamController teamController = Get.find<TeamController>();
+
+    return Obx(() {
+      List<UserRef> studentList = teamController.model.students.values.toList();
+      if (studentList.isNotEmpty) {
+        List<Widget> listWidget = [];
+        studentList.sort((a, b) => a.displayName!.compareTo(b.displayName!));
+        for (var userRef in studentList) {
+          listWidget.add(
+            ListTile(
+              leading: userRef.photoURL == null
+                  ? const SizedBox(
+                      height: 58,
+                      width: 58,
+                    )
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: Image.network(
+                        userRef.photoURL!,
+                        height: 58,
+                        width: 58,
+                      ),
+                    ),
+              title: Text(userRef.displayName ?? 'Not name'),
+              subtitle: Text(userRef.email),
+              trailing: IconButton(
+                icon: const Icon(AppIconData.delete),
+                onPressed: () {
+                  onDeleteUser(userRef.id);
+                },
               ),
             ),
-      title: Text(userRef.displayName ?? 'Not name'),
-      subtitle: Text(userRef.email),
-      trailing: IconButton(
-        icon: const Icon(AppIconData.delete),
-        onPressed: () {
-          onDeleteUser(userRef.id);
-        },
-      ),
-    );
+          );
+        }
+        return Column(
+          children: listWidget,
+        );
+      } else {
+        return const ListTile(
+          leading: Icon(AppIconData.smile),
+          title: Text("Ops. You don't have any student."),
+        );
+      }
+    });
   }
+
+  // Widget listTilePerson({required UserRef? userRef}) {
+  //   return ListTile(
+  //     leading: userRef!.photoURL == null
+  //         ? const SizedBox(
+  //             height: 58,
+  //             width: 58,
+  //           )
+  //         : ClipRRect(
+  //             borderRadius: BorderRadius.circular(8.0),
+  //             child: Image.network(
+  //               userRef.photoURL!,
+  //               height: 58,
+  //               width: 58,
+  //             ),
+  //           ),
+  //     title: Text(userRef.displayName ?? 'Not name'),
+  //     subtitle: Text(userRef.email),
+  //     trailing: IconButton(
+  //       icon: const Icon(AppIconData.delete),
+  //       onPressed: () {
+  //         onDeleteUser(userRef.id);
+  //       },
+  //     ),
+  //   );
+  // }
 }

@@ -27,6 +27,26 @@ class PhraseRepository {
     return streamList;
   }
 
+  Future<List<PhraseModel>> getAll() async {
+    UserController userController = Get.find<UserController>();
+
+    QuerySnapshot<Map<String, dynamic>> querySnapshot =
+        await _firebaseFirestoreInstance
+            .collection(PhraseModel.collection)
+            .where('teacher.id', isEqualTo: userController.userModel.id)
+            // .where('isArchived', isEqualTo: false)
+            .get();
+    List<PhraseModel> listModel = <PhraseModel>[];
+    listModel = querySnapshot.docs
+        .map(
+          (queryDocumentSnapshot) => PhraseModel.fromMap(
+            queryDocumentSnapshot.data(),
+          ),
+        )
+        .toList();
+    return listModel;
+  }
+
   delete(id) {
     _firebaseFirestoreInstance
         .collection(PhraseModel.collection)

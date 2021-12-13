@@ -7,7 +7,7 @@ import 'package:transcribing2/app/theme/app_icon.dart';
 import 'search_team_controller.dart';
 
 class SearchTeamPage extends GetView<SearchTeamController> {
-  TaskController taskController = Get.find<TaskController>();
+  // TaskController taskController = Get.find<TaskController>();
 
   // final List<TeamModel> teamIList;
   // final Function(String) onSetTeam;
@@ -48,7 +48,7 @@ class SearchTeamPage extends GetView<SearchTeamController> {
                   tooltip: 'Select this team.',
                   icon: const Icon(AppIconData.select),
                   onPressed: () {
-                    controller.onAddOrRemoveStudent(model.id);
+                    controller.setTeam(model);
                   },
                 ),
               ],

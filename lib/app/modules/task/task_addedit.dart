@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:transcribing2/app/modules/search_phrase/search_phrase_widget.dart';
 import 'package:transcribing2/app/modules/search_team/search_team_widget.dart';
 import 'package:transcribing2/app/modules/task/task_controller.dart';
+import 'package:transcribing2/app/modules/team/team_card.dart';
 import 'package:transcribing2/app/theme/app_icon.dart';
 import 'package:transcribing2/app/widget/input_checkbox.dart';
 import 'package:transcribing2/app/widget/input_title.dart';
@@ -71,16 +73,38 @@ class TaskAddEdit extends GetView<TaskController> {
             ),
             SearchTeamWidget(
               label: 'Select team for this task',
-              team: controller.model.team,
+              // team: controller.model.team,
+              teamWidget: Obx(
+                () {
+                  if (controller.model.team != null) {
+                    return TeamCard(
+                      team: controller.model.team,
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
+
               required: true,
               // isFieldValid: widget.formControllerTask.isTeamValid,
             ),
-            //       SearchPhrase(
-            //         label: 'Select phrase for this task',
-            //         phrase: widget.formControllerTask.taskModel.phrase,
-            //         required: true,
-            //         isFieldValid: widget.formControllerTask.isPhraseValid,
-            //       ),
+            SearchPhraseWidget(
+              label: 'Select phrase for this task',
+              phraseWidget: Obx(
+                () {
+                  if (controller.model.phrase != null) {
+                    return ListTile(
+                      title: Text(controller.model.phrase.phraseList.join(' ')),
+                      subtitle: Text(controller.model.phrase.group),
+                    );
+                  } else {
+                    return Container();
+                  }
+                },
+              ),
+              required: true,
+            ),
             RequiredId(
               message: 'Sentence id: ${controller.model.id}',
             ),

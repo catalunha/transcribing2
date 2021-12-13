@@ -1,20 +1,22 @@
 import 'package:get/get.dart';
+import 'package:transcribing2/app/data/model/phrase_model.dart';
 import 'package:transcribing2/app/data/model/team_model.dart';
+import 'package:transcribing2/app/data/repository/phrase_repository.dart';
 import 'package:transcribing2/app/data/repository/team_repository.dart';
 import 'package:transcribing2/app/modules/task/task_controller.dart';
 
-class SearchTeamBinding implements Bindings {
+class SearchPhraseBinding implements Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<TeamRepository>(() => TeamRepository());
-    Get.lazyPut<SearchTeamController>(() => SearchTeamController());
+    Get.lazyPut<PhraseRepository>(() => PhraseRepository());
+    Get.lazyPut<SearchPhraseController>(() => SearchPhraseController());
   }
 }
 
-class SearchTeamController extends GetxController {
-  final TeamRepository _repository = Get.find<TeamRepository>();
+class SearchPhraseController extends GetxController {
+  final PhraseRepository _repository = Get.find<PhraseRepository>();
 
-  RxList<TeamModel> list = <TeamModel>[].obs;
+  RxList<PhraseModel> list = <PhraseModel>[].obs;
 
   @override
   void onInit() {
@@ -24,7 +26,7 @@ class SearchTeamController extends GetxController {
 
   void _load() async {
     print('initial load.');
-    List<TeamModel> _list = await _repository.getAll();
+    List<PhraseModel> _list = await _repository.getAll();
     try {
       // _list.sort((a, b) => a.displayName!.compareTo(b.displayName!));
     } catch (e) {}
@@ -32,9 +34,9 @@ class SearchTeamController extends GetxController {
     print('end load.');
   }
 
-  setTeam(TeamModel team) {
+  setPhrase(PhraseModel phrase) {
     TaskController taskController = Get.find<TaskController>();
-    taskController.setTeam(team);
+    taskController.setPhrase(phrase);
     Get.back();
   }
 }
