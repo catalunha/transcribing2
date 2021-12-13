@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:transcribing2/app/data/model/user_model.dart';
 import 'package:transcribing2/app/theme/app_icon.dart';
 
-class SearchUserView extends StatelessWidget {
+class SearchUserWidget extends StatelessWidget {
   final String label;
   final List<UserRef> userRefList;
   final IconData icon;
@@ -11,7 +11,7 @@ class SearchUserView extends StatelessWidget {
   // final bool? isFieldValid;
   final void Function(String) onDeleteUser;
   final void Function() search;
-  const SearchUserView({
+  const SearchUserWidget({
     Key? key,
     required this.label,
     required this.userRefList,

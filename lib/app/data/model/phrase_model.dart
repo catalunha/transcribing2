@@ -12,8 +12,6 @@ class PhraseModel {
   List<String> phraseList;
   String phraseAudio;
 
-  bool isArchived;
-
   String? phraseImage;
   List<String>? phraseListImage;
   PhraseModel({
@@ -22,7 +20,6 @@ class PhraseModel {
     required this.group,
     required this.phraseList,
     required this.phraseAudio,
-    this.isArchived = false,
     this.phraseImage,
     this.phraseListImage,
   });
@@ -43,7 +40,6 @@ class PhraseModel {
       group: group ?? this.group,
       phraseList: phraseList ?? this.phraseList,
       phraseAudio: phraseAudio ?? this.phraseAudio,
-      isArchived: isArchived ?? this.isArchived,
       phraseImage: phraseImage ?? this.phraseImage,
       phraseListImage: phraseListImage ?? this.phraseListImage,
     );
@@ -60,7 +56,6 @@ class PhraseModel {
       'group': group,
       'phraseList': phraseList.cast<String>(),
       'phraseAudio': phraseAudio,
-      'isArchived': isArchived,
       if (phraseImage != null) 'phraseImage': phraseImage,
       if (phraseListImage != null)
         'phraseListImage': phraseListImage!.cast<String>(),
@@ -74,7 +69,6 @@ class PhraseModel {
       group: map['group'],
       phraseList: List<String>.from(map['phraseList']),
       phraseAudio: map['phraseAudio'],
-      isArchived: map['isArchived'],
       phraseImage: map['phraseImage'],
       phraseListImage: map['phraseListImage']?.cast<String>() ?? null,
 
@@ -91,7 +85,7 @@ class PhraseModel {
 
   @override
   String toString() {
-    return 'PhraseModel(teacher: $teacher, group: $group, phraseList: $phraseList, phraseAudio: $phraseAudio, isArchived: $isArchived, phraseImage: $phraseImage,  phraseListImage: $phraseListImage)';
+    return 'PhraseModel(teacher: $teacher, group: $group, phraseList: $phraseList, phraseAudio: $phraseAudio, phraseImage: $phraseImage,  phraseListImage: $phraseListImage)';
   }
 
   @override
@@ -104,7 +98,6 @@ class PhraseModel {
         other.group == group &&
         listEquals(other.phraseList, phraseList) &&
         other.phraseAudio == phraseAudio &&
-        other.isArchived == isArchived &&
         other.phraseImage == phraseImage &&
         listEquals(other.phraseListImage, phraseListImage);
   }
@@ -116,7 +109,6 @@ class PhraseModel {
         group.hashCode ^
         phraseList.hashCode ^
         phraseAudio.hashCode ^
-        isArchived.hashCode ^
         phraseImage.hashCode ^
         phraseListImage.hashCode;
   }

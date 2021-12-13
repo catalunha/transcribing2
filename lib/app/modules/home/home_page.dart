@@ -50,10 +50,7 @@ class HomePage extends StatelessWidget {
                   leading: const Icon(Icons.task),
                   title: const Text('Create a task'),
                   onTap: () async {
-                    Navigator.pushNamed(
-                      context,
-                      '/task_list',
-                    );
+                    Get.toNamed('/task');
                   },
                 ),
               ),

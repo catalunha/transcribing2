@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:transcribing2/app/modules/phrase/phrase_controller.dart';
 import 'package:transcribing2/app/modules/upload/upload_widget.dart';
 import 'package:transcribing2/app/theme/app_icon.dart';
-import 'package:transcribing2/app/widget/input_checkbox_delete.dart';
+import 'package:transcribing2/app/widget/delete_document.dart';
 import 'package:transcribing2/app/widget/input_description.dart';
 import 'package:transcribing2/app/widget/input_title.dart';
 import 'package:transcribing2/app/widget/required_id.dart';

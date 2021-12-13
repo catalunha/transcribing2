@@ -1,27 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:transcribing2/app/data/model/phrase_model.dart';
-import 'package:transcribing2/app/data/model/team_model.dart';
+import 'package:transcribing2/app/data/model/task_model.dart';
 import 'package:transcribing2/app/modules/user/user_controller.dart';
 
-class PhraseRepository {
+class TaskRepository {
   final FirebaseFirestore _firebaseFirestoreInstance =
       FirebaseFirestore.instance;
 
-  Stream<List<PhraseModel>> streamAll() {
+  Stream<List<TaskModel>> streamAll() {
     UserController userController = Get.find<UserController>();
 
     Query<Map<String, dynamic>> collRef;
     collRef = _firebaseFirestoreInstance
-        .collection(PhraseModel.collection)
-        .where('teacher.id', isEqualTo: userController.userModel.id);
+        .collection(TaskModel.collection)
+        .where('team.teacher.id', isEqualTo: userController.userModel.id);
 
     Stream<QuerySnapshot<Map<String, dynamic>>> streamQuerySnapshot =
         collRef.snapshots();
 
-    Stream<List<PhraseModel>> streamList = streamQuerySnapshot.map(
+    Stream<List<TaskModel>> streamList = streamQuerySnapshot.map(
         (querySnapshot) => querySnapshot.docs
-            .map((docSnapshot) => PhraseModel.fromMap(docSnapshot.data()))
+            .map((docSnapshot) => TaskModel.fromMap(docSnapshot.data()))
             .toList());
 
     return streamList;
@@ -29,22 +29,33 @@ class PhraseRepository {
 
   delete(id) {
     _firebaseFirestoreInstance
-        .collection(PhraseModel.collection)
+        .collection(TaskModel.collection)
         .doc(id)
         .delete();
   }
 
   String newId() {
     String idNew =
-        _firebaseFirestoreInstance.collection(PhraseModel.collection).doc().id;
+        _firebaseFirestoreInstance.collection(TaskModel.collection).doc().id;
     return idNew;
   }
 
-  Future<void> set(PhraseModel model) async {
+  Future<void> set(TaskModel model) async {
     try {
       CollectionReference docRef =
-          _firebaseFirestoreInstance.collection(PhraseModel.collection);
+          _firebaseFirestoreInstance.collection(TaskModel.collection);
       await docRef.doc(model.id).set(model.toMap());
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+
+  Future<void> update(String id, Map<String, dynamic> data) async {
+    try {
+      CollectionReference docRef =
+          _firebaseFirestoreInstance.collection(TaskModel.collection);
+      await docRef.doc(id).update(data);
     } catch (e) {
       print(e);
       rethrow;

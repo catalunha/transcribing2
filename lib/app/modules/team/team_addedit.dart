@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:transcribing2/app/modules/search_user/search_user_view.dart';
+import 'package:transcribing2/app/modules/search_user/search_user_widget.dart';
 import 'package:transcribing2/app/theme/app_icon.dart';
-import 'package:transcribing2/app/widget/input_checkbox_delete.dart';
+import 'package:transcribing2/app/widget/delete_document.dart';
 import 'package:transcribing2/app/widget/input_title.dart';
 import 'package:transcribing2/app/widget/required_id.dart';
 
@@ -42,7 +42,7 @@ class TeamAddEdit extends GetView<TeamController> {
                 ],
               ),
             ),
-            SearchUserView(
+            SearchUserWidget(
               label:
                   '${controller.model.students.length} Students. Click here, for select more.',
               userRefList: controller.model.students.values.toList(),

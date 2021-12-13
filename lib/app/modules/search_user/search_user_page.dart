@@ -6,7 +6,7 @@ import 'package:transcribing2/app/modules/search_user/search_user_controller.dar
 import 'package:transcribing2/app/modules/team/team_controller.dart';
 import 'package:transcribing2/app/theme/app_icon.dart';
 
-class SearchUser extends GetView<SearchUserController> {
+class SearchUserPage extends GetView<SearchUserController> {
   TeamController teamController = Get.find<TeamController>();
 
   @override

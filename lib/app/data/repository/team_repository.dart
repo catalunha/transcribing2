@@ -28,6 +28,26 @@ class TeamRepository {
     return streamList;
   }
 
+  Future<List<TeamModel>> getAll() async {
+    UserController userController = Get.find<UserController>();
+
+    QuerySnapshot<Map<String, dynamic>> querySnapshot =
+        await _firebaseFirestoreInstance
+            .collection(TeamModel.collection)
+            .where('teacher.id', isEqualTo: userController.userModel.id)
+            // .where('isArchived', isEqualTo: false)
+            .get();
+    List<TeamModel> listModel = <TeamModel>[];
+    listModel = querySnapshot.docs
+        .map(
+          (queryDocumentSnapshot) => TeamModel.fromMap(
+            queryDocumentSnapshot.data(),
+          ),
+        )
+        .toList();
+    return listModel;
+  }
+
 // getById(id){
 //   return api.getId(id);
 // }
@@ -47,7 +67,7 @@ class TeamRepository {
     return idNew;
   }
 
-  Future<void> add(TeamModel teamModel) async {
+  Future<void> set(TeamModel teamModel) async {
     try {
       CollectionReference docRef =
           _firebaseFirestoreInstance.collection(TeamModel.collection);

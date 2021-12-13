@@ -36,7 +36,7 @@ class TeamController extends GetxController {
     } else {
       if (formKey.currentState!.validate()) {
         formKey.currentState!.save();
-        _repository.add(_model.value);
+        _repository.set(_model.value);
         Get.back();
       }
     }

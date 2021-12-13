@@ -2,8 +2,13 @@ import 'package:get/get.dart';
 import 'package:transcribing2/app/modules/phrase/phrase_addedit.dart';
 import 'package:transcribing2/app/modules/phrase/phrase_controller.dart';
 import 'package:transcribing2/app/modules/phrase/phrase_page.dart';
+import 'package:transcribing2/app/modules/search_team/search_team_controller.dart';
+import 'package:transcribing2/app/modules/search_team/search_team_page.dart';
+import 'package:transcribing2/app/modules/task/task_addedit.dart';
+import 'package:transcribing2/app/modules/task/task_controller.dart';
+import 'package:transcribing2/app/modules/task/task_page.dart';
 import 'modules/auth/auth_controller.dart';
-import 'modules/search_user/search_user_.dart';
+import 'modules/search_user/search_user_page.dart';
 import 'modules/search_user/search_user_controller.dart';
 import 'modules/team/team_addedit.dart';
 import 'modules/team/team_controller.dart';
@@ -22,6 +27,9 @@ abstract class RoutesPaths {
   static const searchUser = '/searchUser';
   static const phrase = '/phrase';
   static const phraseAddEdit = '/phraseAddEdit';
+  static const task = '/task';
+  static const taskAddEdit = '/taskAddEdit';
+  static const searchTeam = '/searchTeam';
 }
 
 class RoutesPages {
@@ -46,11 +54,11 @@ class RoutesPages {
     ),
     GetPage(
       name: RoutesPaths.teamAddEdit,
-      page: () => TeamAddEdit(),
+      page: () => const TeamAddEdit(),
     ),
     GetPage(
       name: RoutesPaths.searchUser,
-      page: () => SearchUser(),
+      page: () => SearchUserPage(),
       binding: SearchUserBinding(),
     ),
     GetPage(
@@ -60,7 +68,21 @@ class RoutesPages {
     ),
     GetPage(
       name: RoutesPaths.phraseAddEdit,
-      page: () => PhraseAddEdit(),
+      page: () => const PhraseAddEdit(),
+    ),
+    GetPage(
+      name: RoutesPaths.task,
+      page: () => const TaskPage(),
+      binding: TaskBinding(),
+    ),
+    GetPage(
+      name: RoutesPaths.taskAddEdit,
+      page: () => const TaskAddEdit(),
+    ),
+    GetPage(
+      name: RoutesPaths.searchTeam,
+      page: () => SearchTeamPage(),
+      binding: SearchTeamBinding(),
     ),
   ];
 }
