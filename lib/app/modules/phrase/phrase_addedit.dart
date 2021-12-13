@@ -43,7 +43,7 @@ class PhraseAddEdit extends GetView<PhraseController> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('${controller.model.teacher.id}/${controller.model.id}'),
+                  // Text('${controller.model.teacher.id}/${controller.model.id}'),
                   InputTitle(
                     label: 'Group for this sentence',
                     required: true,
@@ -75,18 +75,7 @@ class PhraseAddEdit extends GetView<PhraseController> {
                 ],
               ),
             ),
-            // Obx(() {
-            //   return UploadWidget(
-            //     label: 'Send the audio',
-            //     requiredField: true,
-            //     pathInFirestore:
-            //         '${controller.model.teacher.id}/${controller.model.id}',
-            //     setStateWidget: () {
-            //       print('setState in phraseAddEdit');
-            //       // setState(() {});
-            //     },
-            //   );
-            // }),
+
             UploadWidget(
               label: 'Send the audio',
               requiredField: true,
@@ -97,9 +86,9 @@ class PhraseAddEdit extends GetView<PhraseController> {
                 controller.formOnChangeField(phraseAudio: url);
               },
             ),
-            Obx(() {
-              return Text('${controller.model.phraseAudio}');
-            }),
+            // Obx(() {
+            //   return Text('${controller.model.phraseAudio}');
+            // }),
             RequiredId(
               message: 'Sentence id: ${controller.model.id}',
             ),
