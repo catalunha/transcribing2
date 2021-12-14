@@ -3,27 +3,28 @@ import 'package:get/get.dart';
 import 'package:transcribing2/app/data/model/phrase_model.dart';
 import 'package:transcribing2/app/data/model/task_model.dart';
 import 'package:transcribing2/app/data/model/transcription_model.dart';
+import 'package:transcribing2/app/modules/task/task_controller.dart';
 import 'package:transcribing2/app/modules/user/user_controller.dart';
 
-class TaskRepository {
+class TranscriptionRepository {
   final FirebaseFirestore _firebaseFirestoreInstance =
       FirebaseFirestore.instance;
 
-  Stream<List<TaskModel>> streamAll() {
-    UserController userController = Get.find<UserController>();
-
+  Stream<List<TranscriptionModel>> streamAllTranscriptionListOfPeopleOnTask(
+      String taskId) {
     Query<Map<String, dynamic>> collRef;
     collRef = _firebaseFirestoreInstance
-        .collection(TaskModel.collection)
-        .where('team.teacher.id', isEqualTo: userController.userModel.id)
+        .collection(TranscriptionModel.collection)
+        .where('task.id', isEqualTo: taskId)
         .where('isArchived', isEqualTo: false);
 
     Stream<QuerySnapshot<Map<String, dynamic>>> streamQuerySnapshot =
         collRef.snapshots();
 
-    Stream<List<TaskModel>> streamList = streamQuerySnapshot.map(
+    Stream<List<TranscriptionModel>> streamList = streamQuerySnapshot.map(
         (querySnapshot) => querySnapshot.docs
-            .map((docSnapshot) => TaskModel.fromMap(docSnapshot.data()))
+            .map(
+                (docSnapshot) => TranscriptionModel.fromMap(docSnapshot.data()))
             .toList());
 
     return streamList;

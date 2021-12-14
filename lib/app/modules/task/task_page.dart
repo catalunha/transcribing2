@@ -67,11 +67,7 @@ class TaskPage extends GetView<TaskController> {
                   tooltip: 'People in this task.',
                   icon: const Icon(AppIconData.people),
                   onPressed: () {
-                    // Navigator.pushNamed(
-                    //   context,
-                    //   '/task_people_list',
-                    //   arguments: task.id,
-                    // );
+                    controller.toPeopleOnTask(model.id);
                   },
                 ),
                 IconButton(

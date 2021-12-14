@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:transcribing2/app/data/model/phrase_model.dart';
 import 'package:transcribing2/app/data/model/task_model.dart';
 import 'package:transcribing2/app/data/model/team_model.dart';
+import 'package:transcribing2/app/data/model/transcription_model.dart';
 import 'package:transcribing2/app/data/repository/task_repository.dart';
+import 'package:transcribing2/app/data/repository/transcription_repository.dart';
 import 'package:transcribing2/app/modules/team/team_addedit.dart';
 import 'package:transcribing2/app/modules/user/user_controller.dart';
 
@@ -11,6 +13,7 @@ class TaskBinding implements Bindings {
   @override
   void dependencies() {
     Get.lazyPut<TaskRepository>(() => TaskRepository());
+    Get.lazyPut<TranscriptionRepository>(() => TranscriptionRepository());
     Get.lazyPut<TaskController>(() => TaskController());
   }
 }
@@ -20,6 +23,8 @@ class TaskController extends GetxController {
 
   RxList<TaskModel> list = <TaskModel>[].obs;
   RxList<TaskModel> listArchived = <TaskModel>[].obs;
+  RxList<TranscriptionModel> transcriptionListOfPeopleOnTask =
+      <TranscriptionModel>[].obs;
 
   late Rx<TaskModel> _model;
   get model => _model.value;
@@ -33,6 +38,16 @@ class TaskController extends GetxController {
     super.onInit();
     list.bindStream(_repository.streamAll());
     listArchived.bindStream(_repository.streamAllArchived());
+  }
+
+  toPeopleOnTask(String taskId) {
+    final TranscriptionRepository _repositoryTranscription =
+        Get.find<TranscriptionRepository>();
+
+    transcriptionListOfPeopleOnTask.bindStream(_repositoryTranscription
+        .streamAllTranscriptionListOfPeopleOnTask(taskId));
+
+    Get.toNamed('/taskPeopleOnTask');
   }
 
   void add() {
