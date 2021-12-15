@@ -47,3 +47,4 @@ app.*.map.json
 
 # meus gitignores
 /android/app/google-services.json
+.VSCodeCounter
