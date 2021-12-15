@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:transcribing2/app/modules/auth/auth_controller.dart';
+import 'package:transcribing2/app/modules/home/widget/information.dart';
 import 'package:transcribing2/app/modules/user/user_controller.dart';
 import 'package:transcribing2/app/theme/app_icon.dart';
 
@@ -60,10 +61,7 @@ class HomePage extends StatelessWidget {
                 leading: const Icon(Icons.multitrack_audio),
                 title: const Text('Transcribe an audio'),
                 onTap: () async {
-                  Navigator.pushNamed(
-                    context,
-                    '/transcription_list',
-                  );
+                  Get.toNamed('/transcription');
                 },
               ),
             )
@@ -93,7 +91,10 @@ class HomePage extends StatelessWidget {
           PopupMenuItem(
             child: TextButton.icon(
               label: const Text('Information'),
-              onPressed: () {},
+              onPressed: () async {
+                await Get.to(() => const Information());
+                Get.back();
+              },
               icon: const Icon(AppIconData.info),
             ),
           ),

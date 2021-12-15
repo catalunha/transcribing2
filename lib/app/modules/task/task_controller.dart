@@ -6,8 +6,6 @@ import 'package:transcribing2/app/data/model/team_model.dart';
 import 'package:transcribing2/app/data/model/transcription_model.dart';
 import 'package:transcribing2/app/data/repository/task_repository.dart';
 import 'package:transcribing2/app/data/repository/transcription_repository.dart';
-import 'package:transcribing2/app/modules/team/team_addedit.dart';
-import 'package:transcribing2/app/modules/user/user_controller.dart';
 
 class TaskBinding implements Bindings {
   @override
@@ -37,7 +35,12 @@ class TaskController extends GetxController {
   void onInit() {
     super.onInit();
     list.bindStream(_repository.streamAll());
+  }
+
+  toArchived() {
     listArchived.bindStream(_repository.streamAllArchived());
+
+    Get.toNamed('/taskArchived');
   }
 
   toPeopleOnTask(String taskId) {
@@ -53,27 +56,33 @@ class TaskController extends GetxController {
   void add() {
     addOrEdit = true;
 
-    // UserController userController = Get.find<UserController>();
-
     _model = TaskModel(
       id: _repository.newId(),
     ).obs;
     Get.toNamed('/taskAddEdit');
   }
 
-  // void edit(String id) {
-  //   addOrEdit = false;
+  void addCopyWith(String id) {
+    addOrEdit = true;
 
-  //   TaskModel _modelTemp = list.firstWhere((element) => element.id == id);
-  //   _model = _modelTemp.copy().obs;
-  //   Get.toNamed('/taskAddEdit');
-  // }
+    TaskModel _modelTemp = list.firstWhere((element) => element.id == id);
+
+    _model = TaskModel(
+      id: _repository.newId(),
+      title: _modelTemp.title,
+      isWritten: _modelTemp.isWritten,
+      team: _modelTemp.team,
+      phrase: _modelTemp.phrase,
+    ).obs;
+
+    Get.toNamed('/taskAddEdit');
+  }
 
   delete(String id) {
     _repository.delete(id);
   }
 
-  archive(String id, bool status) {
+  onArchive(String id, bool status) {
     _repository.update(id, {'isArchived': status});
   }
 
@@ -116,9 +125,6 @@ class TaskController extends GetxController {
       if (isWritten != null) {
         value!.isWritten = isWritten;
       }
-      // if (phraseAudio != null) {
-      //   value!.phraseAudio = phraseAudio;
-      // }
     });
   }
 

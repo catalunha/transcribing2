@@ -17,17 +17,3 @@ final ThemeData appThemeDataDark = ThemeData(
   primaryColor: Colors.blue,
   primarySwatch: Colors.green,
 );
-
-/*
-final ThemeData appThemeDataDark = ThemeData(
-  primaryColor: Colors.black,
-  brightness: Brightness.dark,
-  colorScheme: ColorScheme.fromSwatch(
-    brightness: Brightness.dark,
-    accentColor: Colors.green[600],
-  ),
-  appBarTheme: const AppBarTheme(
-    color: Colors.black,
-  ),
-);
-*/

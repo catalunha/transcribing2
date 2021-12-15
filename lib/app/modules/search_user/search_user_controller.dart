@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:transcribing2/app/data/model/team_model.dart';
 import 'package:transcribing2/app/data/model/user_model.dart';
 import 'package:transcribing2/app/data/repository/user_repository.dart';
 import 'package:transcribing2/app/modules/team/team_controller.dart';
@@ -25,7 +24,6 @@ class SearchUserController extends GetxController {
   }
 
   void _load() async {
-    print('initial load.');
     List<UserModel> _list = await _userRepository.getAll();
     try {
       _list.sort((a, b) => a.displayName!.compareTo(b.displayName!));
@@ -39,7 +37,6 @@ class SearchUserController extends GetxController {
               displayName: userModel.displayName),
         )
         .toList());
-    print('end load.');
   }
 
   onAddOrRemoveStudent(bool add, String userId) {

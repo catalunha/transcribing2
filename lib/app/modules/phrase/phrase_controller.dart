@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:transcribing2/app/data/model/phrase_model.dart';
 import 'package:transcribing2/app/data/model/user_model.dart';
 import 'package:transcribing2/app/data/repository/phrase_repository.dart';
-import 'package:transcribing2/app/modules/upload/upload_controller.dart';
 import 'package:transcribing2/app/modules/user/user_controller.dart';
 
 class PhraseBinding implements Bindings {
@@ -52,11 +51,33 @@ class PhraseController extends GetxController {
     Get.toNamed('/phraseAddEdit');
   }
 
+  void addCopyWith(String id) {
+    addOrEdit = true;
+    UserController userController = Get.find<UserController>();
+
+    PhraseModel _modelTemp = list.firstWhere((element) => element.id == id);
+
+    _model = PhraseModel(
+      id: _repository.newId(),
+      teacher: UserRef.fromMap({
+        'id': userController.userModel.id,
+        'email': userController.userModel.email,
+        'photoURL': userController.userModel.photoURL,
+        'displayName': userController.userModel.displayName
+      }),
+      group: _modelTemp.group,
+      phraseList: [],
+      phraseAudio: '',
+    ).obs;
+
+    Get.toNamed('/phraseAddEdit');
+  }
+
   void edit(String id) {
     addOrEdit = false;
 
     PhraseModel _modelTemp = list.firstWhere((element) => element.id == id);
-    _model = _modelTemp.copy().obs;
+    _model = _modelTemp.copyWith().obs;
     Get.toNamed('/phraseAddEdit');
   }
 

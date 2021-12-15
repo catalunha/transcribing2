@@ -49,11 +49,9 @@ class TeamAddEdit extends GetView<TeamController> {
               required: true,
               onDeleteUser: (String value) {
                 controller.removeStudent(value);
-                // setState(() {});
               },
               search: () async {
                 await Get.toNamed('/searchUser');
-                // setState(() {});
               },
             ),
             controller.addOrEdit

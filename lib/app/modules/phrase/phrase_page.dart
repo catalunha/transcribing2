@@ -45,6 +45,12 @@ class PhrasePage extends GetView<PhraseController> {
                 onTap: () {
                   controller.edit(model.id);
                 },
+                trailing: IconButton(
+                    tooltip: 'Copy this sentence with...',
+                    icon: const Icon(AppIconData.clone),
+                    onPressed: () {
+                      controller.addCopyWith(model.id);
+                    }),
               ),
             ),
           );

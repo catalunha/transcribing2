@@ -33,9 +33,7 @@ class InputDescription extends StatelessWidget {
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Text(
                 label,
-                style: const TextStyle(
-                    // color: ThemeApp.onBackground,
-                    ),
+                style: const TextStyle(),
               ),
               required
                   ? const Text(
@@ -68,16 +66,13 @@ class InputDescription extends StatelessWidget {
               ),
               Expanded(
                 child: TextFormField(
-                  // style: TextStyle(color: ThemeApp.onBackground,),
                   controller: controller,
                   initialValue: initialValue,
                   validator: validator,
                   onChanged: onChanged,
-                  // style: AppTextStyles.input,
                   keyboardType: TextInputType.multiline,
                   maxLines: 10,
                   decoration: const InputDecoration(
-                    // labelStyle: AppTextStyles.input,
                     border: InputBorder.none,
                   ),
                 ),

@@ -8,13 +8,13 @@ class TranscriptionModel {
   static const String collection = 'transcriptions';
 
   final String id;
-  final UserRef student;
-  final TaskModel task;
-  final String? phraseWritten;
-  final List<String>? phraseOrdered;
-  final bool isSolved;
-  final bool isArchived;
-  final bool isDeleted;
+  UserRef student;
+  TaskModel task;
+  String? phraseWritten;
+  List<String>? phraseOrdered;
+  bool isSolved;
+  bool isArchived;
+  bool isDeleted;
   TranscriptionModel({
     required this.id,
     required this.student,
@@ -46,10 +46,6 @@ class TranscriptionModel {
       isArchived: isArchived ?? this.isArchived,
       isDeleted: isDeleted ?? this.isDeleted,
     );
-  }
-
-  TranscriptionModel copy() {
-    return TranscriptionModel.fromMap(toMap());
   }
 
   Map<String, dynamic> toMap() {

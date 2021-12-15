@@ -20,18 +20,19 @@ class Information extends StatelessWidget {
                 '''
 Olá,
 
-Este aplicativo nasceu de uma parceria entre nossa familia Catalunha e o Prof Fabio Costa no processo de ensino e aprendizagem do inglês.
+Este aplicativo nasceu de uma parceria entre a familia Catalunha e o Prof. Fabio Costa no processo de ensino e aprendizagem do inglês.
       ''',
-                // style: AppTextStyles.titleRegular,
               ),
             ),
             ListTile(
               title: const Text('Para um rápido tutorial, clique aqui.'),
               leading: const Icon(AppIconData.undefined),
               onTap: () async {
-                bool can = await canLaunch('https://www.google.com.br');
+                bool can = await canLaunch(
+                    'https://docs.google.com/document/d/1FwOW8nE71i-S0K5dsno7RaQyGuTfR3-vCv8UCHO4eyw/edit?usp=sharing');
                 if (can) {
-                  await launch('https://www.google.com.br');
+                  await launch(
+                      'https://docs.google.com/document/d/1FwOW8nE71i-S0K5dsno7RaQyGuTfR3-vCv8UCHO4eyw/edit?usp=sharing');
                 }
               },
             )

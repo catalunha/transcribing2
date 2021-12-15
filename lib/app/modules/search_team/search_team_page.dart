@@ -1,21 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:transcribing2/app/modules/task/task_controller.dart';
 import 'package:transcribing2/app/modules/team/team_card.dart';
 import 'package:transcribing2/app/theme/app_icon.dart';
 
 import 'search_team_controller.dart';
 
 class SearchTeamPage extends GetView<SearchTeamController> {
-  // TaskController taskController = Get.find<TaskController>();
-
-  // final List<TeamModel> teamIList;
-  // final Function(String) onSetTeam;
-
-  SearchTeamPage({
+  const SearchTeamPage({
     Key? key,
-    // required this.teamIList,
-    // required this.onSetTeam,
   }) : super(key: key);
 
   @override

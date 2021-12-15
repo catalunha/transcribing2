@@ -8,11 +8,8 @@ import 'package:transcribing2/app/theme/app_icon.dart';
 import 'task_controller.dart';
 
 class PeopleOnTask extends GetView<TaskController> {
-  // final IList<TranscriptionModel> transcriptionIList;
-
   const PeopleOnTask({
     Key? key,
-    // required this.transcriptionIList,
   }) : super(key: key);
 
   @override

@@ -8,7 +8,6 @@ class SearchPhraseWidget extends StatelessWidget {
   final String label;
   final String messageTooltip;
   final bool required;
-  // final bool? isFieldValid;
   const SearchPhraseWidget({
     Key? key,
     required this.label,
@@ -16,7 +15,6 @@ class SearchPhraseWidget extends StatelessWidget {
     this.icon = AppIconData.people,
     this.required = false,
     this.messageTooltip = '',
-    // required this.isFieldValid,
   }) : super(key: key);
 
   @override

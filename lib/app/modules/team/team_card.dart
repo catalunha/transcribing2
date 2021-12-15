@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:transcribing2/app/data/model/team_model.dart';
 import 'package:transcribing2/app/data/model/user_model.dart';
-import 'package:transcribing2/app/theme/app_icon.dart';
 
 class TeamCard extends StatelessWidget {
   final TeamModel team;
@@ -27,16 +26,10 @@ class TeamCard extends StatelessWidget {
             child: Center(
               child: Text(
                 team.name,
-                // textAlign: TextAlign.start,
                 style: const TextStyle(fontSize: 20),
               ),
             ),
           ),
-          // Text(team.id),
-          // Container(
-          //   height: 1,
-          //   color: Colors.blue,
-          // ),
           Wrap(
             children: personList(
                 context: context, userRefList: team.students.values.toList()),

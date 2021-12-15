@@ -45,10 +45,6 @@ class PhraseModel {
     );
   }
 
-  PhraseModel copy() {
-    return PhraseModel.fromMap(toMap());
-  }
-
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -70,11 +66,7 @@ class PhraseModel {
       phraseList: List<String>.from(map['phraseList']),
       phraseAudio: map['phraseAudio'],
       phraseImage: map['phraseImage'],
-      phraseListImage: map['phraseListImage']?.cast<String>() ?? null,
-
-      // phraseListImage: map['phraseListImage'] != null
-      //     ? map['phraseListImage'].cast<String>()
-      //     : null,
+      phraseListImage: map['phraseListImage']?.cast<String>(),
     );
   }
 

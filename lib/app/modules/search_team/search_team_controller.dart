@@ -23,13 +23,11 @@ class SearchTeamController extends GetxController {
   }
 
   void _load() async {
-    print('initial load.');
     List<TeamModel> _list = await _repository.getAll();
     try {
       // _list.sort((a, b) => a.displayName!.compareTo(b.displayName!));
     } catch (e) {}
     list(_list);
-    print('end load.');
   }
 
   setTeam(TeamModel team) {

@@ -16,10 +16,7 @@ class DeleteDocument extends StatelessWidget {
         Container(
           width: double.infinity,
           alignment: Alignment.topCenter,
-          child: const Text('Delete this item',
-              style: TextStyle(
-                  // color: ThemeApp.onBackground,
-                  )),
+          child: const Text('Delete this item', style: TextStyle()),
           color: Colors.green.shade900,
         ),
         Row(
@@ -34,13 +31,6 @@ class DeleteDocument extends StatelessWidget {
                   color: Colors.red,
                 ),
               ),
-              // child: IconButton(
-              //   onPressed: onPressed,
-              //   icon: const Icon(
-              //     AppIconData.delete,
-              //     color: Colors.blue,
-              //   ),
-              // ),
             ),
             Container(
               width: 1,

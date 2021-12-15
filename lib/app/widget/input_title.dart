@@ -38,9 +38,7 @@ class InputTitle extends StatelessWidget {
                   Text(
                     label,
                     softWrap: true,
-                    style: const TextStyle(
-                        // color: Colors.white,
-                        ),
+                    style: const TextStyle(),
                   ),
                   required
                       ? const Text(
@@ -73,16 +71,12 @@ class InputTitle extends StatelessWidget {
               ),
               Expanded(
                 child: TextFormField(
-                  style: const TextStyle(
-                      // color: ThemeApp.onBackground,
-                      ),
+                  style: const TextStyle(),
                   controller: controller,
                   initialValue: initialValue,
                   validator: validator,
                   onChanged: onChanged,
-                  // style: AppTextStyles.input,
                   decoration: const InputDecoration(
-                    // label// style: AppTextStyles.input,
                     border: InputBorder.none,
                   ),
                 ),

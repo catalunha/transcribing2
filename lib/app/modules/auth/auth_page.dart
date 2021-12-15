@@ -1,17 +1,10 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'auth_controller.dart';
 
-class AuthPage extends StatelessWidget {
-// class SplashPage extends GetView<SplashController> {
-  final authController = Get.find<AuthController>();
-
-  AuthPage({Key? key}) : super(key: key) {
-    // controller;
-  }
+class AuthPage extends GetView<AuthController> {
+  const AuthPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

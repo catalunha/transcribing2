@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:transcribing2/app/data/model/team_model.dart';
 import 'package:transcribing2/app/theme/app_icon.dart';
 
 import 'team_card.dart';
@@ -17,7 +16,6 @@ class TeamPage extends GetView<TeamController> {
       appBar: AppBar(
         title: Obx(() => Text('My ${controller.list.length} teams')),
       ),
-      // body: buildItens(context),
       body: Column(
         children: [
           Expanded(
@@ -66,29 +64,4 @@ class TeamPage extends GetView<TeamController> {
       }
     });
   }
-
-  // return Obx(
-  //   () => ListView.builder(
-  //     itemCount: controller.list.length,
-  //     itemBuilder: (context, index) {
-  //       TeamModel teamModel = controller.list[index];
-  //       return Container(
-  //         key: ValueKey(teamModel),
-  //         child: TeamCard(
-  //           team: teamModel,
-  //           widgetList: [
-  //             IconButton(
-  //               tooltip: 'Edit this team.',
-  //               icon: const Icon(AppIconData.edit),
-  //               onPressed: () {
-  //                 controller.edit(index);
-  //               },
-  //             ),
-  //           ],
-  //         ),
-  //       );
-  //     },
-  //   ),
-  // );
-
 }

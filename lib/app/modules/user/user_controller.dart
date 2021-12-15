@@ -17,17 +17,14 @@ class UserController extends GetxController {
     Map<String, dynamic>? user;
     user = await _userRepository.getByUid(firebaseUserUid);
     if (user == null) {
-      print('User null. Created');
       await createUser();
     } else {
-      print('User ok.');
       _userModel = UserModel.fromMap(user);
     }
     return true;
   }
 
   Future<bool> createUser() async {
-    print('Creating...');
     Map<String, dynamic> data = {};
     data['uid'] = _authController.firebaseUser!.uid;
     data['email'] = _authController.firebaseUser!.email;

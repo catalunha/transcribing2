@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:transcribing2/app/data/model/phrase_model.dart';
 import 'package:transcribing2/app/data/model/task_model.dart';
 import 'package:transcribing2/app/data/model/transcription_model.dart';
 import 'package:transcribing2/app/modules/user/user_controller.dart';
@@ -70,7 +69,6 @@ class TaskRepository {
         addTranscriptions(model);
       });
     } catch (e) {
-      print(e);
       rethrow;
     }
   }
@@ -94,7 +92,6 @@ class TaskRepository {
           _firebaseFirestoreInstance.collection(TaskModel.collection);
       await docRef.doc(id).update(data);
     } catch (e) {
-      print(e);
       rethrow;
     }
   }

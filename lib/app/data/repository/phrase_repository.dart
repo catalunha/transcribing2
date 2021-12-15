@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:transcribing2/app/data/model/phrase_model.dart';
-import 'package:transcribing2/app/data/model/team_model.dart';
 import 'package:transcribing2/app/modules/user/user_controller.dart';
 
 class PhraseRepository {
@@ -66,7 +65,6 @@ class PhraseRepository {
           _firebaseFirestoreInstance.collection(PhraseModel.collection);
       await docRef.doc(model.id).set(model.toMap());
     } catch (e) {
-      print(e);
       rethrow;
     }
   }

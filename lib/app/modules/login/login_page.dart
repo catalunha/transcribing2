@@ -3,47 +3,20 @@ import 'package:get/get.dart';
 import 'package:transcribing2/app/modules/auth/auth_controller.dart';
 import 'package:transcribing2/app/theme/app_images.dart';
 
-// class LoginPage extends GetView<SplashController> {
-// // class LoginPage extends StatelessWidget {
-//   // final authController = Get.find<SplashController>();
-
-//   LoginPage({Key? key}) : super(key: key) {
-//     // controller;
-//   }
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Center(
-//         child: IconButton(
-//           onPressed: () {
-//             // authController.signOut();
-//             controller.signInWithGoogle();
-//           },
-//           icon: const Icon(Icons.login),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 class LoginPage extends GetView<AuthController> {
   const LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: AppColors.background,
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // const SizedBox(height: 100),
             Image.asset(
               AppImages.login,
-              // width: 192,
-              // height: 192,
             ),
             const SizedBox(height: 50),
             const Padding(
@@ -55,12 +28,8 @@ class LoginPage extends GetView<AuthController> {
               ),
             ),
             const SizedBox(height: 30),
-            // GoogleLoginButton(
-            //   onTap: signIn,
-            // ),
             OutlinedButton.icon(
               onPressed: () {
-                // authController.signInWithGoogle();
                 controller.signInWithGoogle();
               },
               icon: Image.asset(AppImages.google),

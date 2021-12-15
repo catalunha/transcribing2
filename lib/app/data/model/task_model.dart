@@ -49,10 +49,6 @@ class TaskModel {
     );
   }
 
-  TaskModel copy() {
-    return TaskModel.fromMap(toMap());
-  }
-
   Map<String, dynamic> toMap() {
     final Map<String, dynamic> data = <String, dynamic>{};
 

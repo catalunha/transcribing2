@@ -32,10 +32,6 @@ class TeamModel {
     );
   }
 
-  TeamModel copy() {
-    return TeamModel.fromMap(toMap());
-  }
-
   Map<String, dynamic> toMap() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;

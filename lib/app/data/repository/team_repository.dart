@@ -22,9 +22,7 @@ class TeamRepository {
         (querySnapshot) => querySnapshot.docs
             .map((docSnapshot) => TeamModel.fromMap(docSnapshot.data()))
             .toList());
-    // streamList.listen((List<TeamModel> teamModelList) {
-    //   // print('${teamModelList.length}');
-    // });
+
     return streamList;
   }
 
@@ -48,9 +46,6 @@ class TeamRepository {
     return listModel;
   }
 
-// getById(id){
-//   return api.getId(id);
-// }
   delete(id) {
     _firebaseFirestoreInstance
         .collection(TeamModel.collection)
@@ -58,9 +53,6 @@ class TeamRepository {
         .delete();
   }
 
-// edit(obj){
-//   return api.edit( obj );
-// }
   String newId() {
     String idNew =
         _firebaseFirestoreInstance.collection(TeamModel.collection).doc().id;
@@ -73,7 +65,6 @@ class TeamRepository {
           _firebaseFirestoreInstance.collection(TeamModel.collection);
       await docRef.doc(teamModel.id).set(teamModel.toMap());
     } catch (e) {
-      print(e);
       rethrow;
     }
   }

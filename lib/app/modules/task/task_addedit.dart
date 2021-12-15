@@ -10,27 +10,9 @@ import 'package:transcribing2/app/widget/input_title.dart';
 import 'package:transcribing2/app/widget/required_id.dart';
 
 class TaskAddEdit extends GetView<TaskController> {
-  // final FormControllerTask formControllerTask;
-  // final Function(TaskModel) onSave;
-
   const TaskAddEdit({
     Key? key,
-    // required this.formControllerTask,
-    // required this.onSave,
   }) : super(key: key);
-
-//   @override
-//   _TaskAddEditState createState() => _TaskAddEditState();
-// }
-
-// class _TaskAddEditState extends State<TaskAddEdit> {
-//   late FormControllerTask formControllerTask;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     formControllerTask = widget.formControllerTask;
-//   }
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +46,6 @@ class TaskAddEdit extends GetView<TaskController> {
                       value: controller.model.isWritten,
                       onChanged: (value) {
                         controller.onChangeModel(isWritten: value);
-                        // setState(() {});
                       },
                     ),
                   ),
@@ -73,7 +54,6 @@ class TaskAddEdit extends GetView<TaskController> {
             ),
             SearchTeamWidget(
               label: 'Select team for this task',
-              // team: controller.model.team,
               teamWidget: Obx(
                 () {
                   if (controller.model.team != null) {
@@ -85,9 +65,7 @@ class TaskAddEdit extends GetView<TaskController> {
                   }
                 },
               ),
-
               required: true,
-              // isFieldValid: widget.formControllerTask.isTeamValid,
             ),
             SearchPhraseWidget(
               label: 'Select phrase for this task',

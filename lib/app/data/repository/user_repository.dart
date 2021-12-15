@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:transcribing2/app/data/model/user_model.dart';
-import 'package:transcribing2/app/modules/user/user_controller.dart';
 
 class UserRepository extends GetxService {
   final FirebaseFirestore _firebaseFirestoreInstance =

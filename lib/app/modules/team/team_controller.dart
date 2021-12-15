@@ -83,7 +83,7 @@ class TeamController extends GetxController {
   void edit(String id) {
     addOrEdit = false;
     TeamModel _teamModel = list.firstWhere((element) => element.id == id);
-    _model = _teamModel.copy().obs;
+    _model = _teamModel.copyWith().obs;
     Get.toNamed('/teamAddEdit');
   }
 

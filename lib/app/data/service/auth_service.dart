@@ -1,10 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:transcribing2/app/modules/home/home_page.dart';
-import 'package:transcribing2/app/modules/login/login_page.dart';
-
-import '../../routes.dart';
 
 class AuthService extends GetxService {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
@@ -103,7 +99,7 @@ class AuthService extends GetxService {
 
         await firebaseAuth
             .signInWithCredential(credential)
-            .catchError((onErr) => print(onErr));
+            .catchError((onErr) {});
       }
     } catch (e) {
       Get.snackbar(
@@ -111,7 +107,6 @@ class AuthService extends GetxService {
         e.toString(),
         snackPosition: SnackPosition.BOTTOM,
       );
-      print(e.toString());
       throw Exception('Some arbitrary error in signInWithGoogle');
     }
   }

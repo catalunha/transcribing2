@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:transcribing2/app/data/model/task_model.dart';
 import 'package:transcribing2/app/modules/task/task_card.dart';
 import 'package:transcribing2/app/theme/app_icon.dart';
 
 import 'task_controller.dart';
 
 class TaskPage extends GetView<TaskController> {
-  // final List<TaskModel> taskIList;
-  // final Function(String) onArchive;
-  // final Function(String) onDelete;
   const TaskPage({
     Key? key,
-    // required this.taskIList,
-    // required this.onArchive,
-    // required this.onDelete,
   }) : super(key: key);
 
   @override
@@ -27,7 +20,7 @@ class TaskPage extends GetView<TaskController> {
             tooltip: 'Archived sentences',
             icon: const Icon(AppIconData.box),
             onPressed: () {
-              Get.toNamed('/taskArchived');
+              controller.toArchived();
             },
           )
         ],
@@ -74,20 +67,16 @@ class TaskPage extends GetView<TaskController> {
                   tooltip: 'Archive this task.',
                   icon: const Icon(AppIconData.inbox),
                   onPressed: () {
-                    controller.archive(model.id, true);
+                    controller.onArchive(model.id, true);
                   },
                 ),
-                // IconButton(
-                //   tooltip: 'Copy this task with...',
-                //   icon: const Icon(AppIconData.clone),
-                //   onPressed: () {
-                //     Navigator.pushNamed(
-                //       context,
-                //       '/task_addOrEdit',
-                //       arguments: ArgumentsRoutes(['add', task.id]),
-                //     );
-                //   },
-                // ),
+                IconButton(
+                  tooltip: 'Copy this task with...',
+                  icon: const Icon(AppIconData.clone),
+                  onPressed: () {
+                    controller.addCopyWith(model.id);
+                  },
+                ),
               ],
             ),
           ));

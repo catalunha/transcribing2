@@ -5,14 +5,8 @@ import 'task_card.dart';
 import 'task_controller.dart';
 
 class TaskArchivedPage extends GetView<TaskController> {
-  // final IList<TaskModel> taskIList;
-  // final Function(String) onArchive;
-  // final Function(String) onDelete;
   const TaskArchivedPage({
     Key? key,
-    // required this.taskIList,
-    // required this.onArchive,
-    // required this.onDelete,
   }) : super(key: key);
 
   @override
@@ -49,18 +43,14 @@ class TaskArchivedPage extends GetView<TaskController> {
                   tooltip: 'People in this task.',
                   icon: const Icon(AppIconData.people),
                   onPressed: () {
-                    // Navigator.pushNamed(
-                    //   context,
-                    //   '/task_people_list',
-                    //   arguments: task.id,
-                    // );
+                    controller.toPeopleOnTask(model.id);
                   },
                 ),
                 IconButton(
                   tooltip: 'Archive this task.',
                   icon: const Icon(AppIconData.outbox),
                   onPressed: () {
-                    controller.archive(model.id, false);
+                    controller.onArchive(model.id, false);
                     Get.back();
                   },
                 ),
@@ -71,17 +61,6 @@ class TaskArchivedPage extends GetView<TaskController> {
                     controller.delete(model.id);
                   },
                 ),
-                // IconButton(
-                //   tooltip: 'Copy this task with...',
-                //   icon: const Icon(AppIconData.clone),
-                //   onPressed: () {
-                //     Navigator.pushNamed(
-                //       context,
-                //       '/task_addOrEdit',
-                //       arguments: ArgumentsRoutes(['add', task.id]),
-                //     );
-                //   },
-                // ),
               ],
             ),
           ));

@@ -11,6 +11,10 @@ import 'package:transcribing2/app/modules/task/task_addedit.dart';
 import 'package:transcribing2/app/modules/task/task_archived_page.dart';
 import 'package:transcribing2/app/modules/task/task_controller.dart';
 import 'package:transcribing2/app/modules/task/task_page.dart';
+import 'package:transcribing2/app/modules/transcription/transcription_archived_page.dart';
+import 'package:transcribing2/app/modules/transcription/transcription_controller.dart';
+import 'package:transcribing2/app/modules/transcription/transcription_edit.dart';
+import 'package:transcribing2/app/modules/transcription/transcription_page.dart';
 import 'modules/auth/auth_controller.dart';
 import 'modules/search_user/search_user_page.dart';
 import 'modules/search_user/search_user_controller.dart';
@@ -37,13 +41,16 @@ abstract class RoutesPaths {
   static const taskPeopleOnTask = '/taskPeopleOnTask';
   static const searchTeam = '/searchTeam';
   static const searchPhrase = '/searchPhrase';
+  static const transcription = '/transcription';
+  static const transcriptionEdit = '/transcriptionEdit';
+  static const transcriptionArchived = '/transcriptionArchived';
 }
 
 class RoutesPages {
   static final pageList = [
     GetPage(
       name: RoutesPaths.auth,
-      page: () => AuthPage(),
+      page: () => const AuthPage(),
       binding: AuthBinding(),
     ),
     GetPage(
@@ -96,13 +103,26 @@ class RoutesPages {
     ),
     GetPage(
       name: RoutesPaths.searchTeam,
-      page: () => SearchTeamPage(),
+      page: () => const SearchTeamPage(),
       binding: SearchTeamBinding(),
     ),
     GetPage(
       name: RoutesPaths.searchPhrase,
-      page: () => SearchPhrasePage(),
+      page: () => const SearchPhrasePage(),
       binding: SearchPhraseBinding(),
+    ),
+    GetPage(
+      name: RoutesPaths.transcription,
+      page: () => const TranscriptionPage(),
+      binding: TranscriptionBinding(),
+    ),
+    GetPage(
+      name: RoutesPaths.transcriptionEdit,
+      page: () => const TranscriptionEdit(),
+    ),
+    GetPage(
+      name: RoutesPaths.transcriptionArchived,
+      page: () => const TranscriptionArchivedPage(),
     ),
   ];
 }

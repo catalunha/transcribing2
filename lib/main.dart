@@ -1,11 +1,9 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'app/data/service/firebase_service.dart';
 import 'app/routes.dart';
 import 'app/theme/app_theme.dart';
-import 'app/translation/app_translations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

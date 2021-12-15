@@ -27,7 +27,6 @@ class InputCheckBox extends StatelessWidget {
           alignment: Alignment.topCenter,
           child: Text(
             title,
-            // style: TextStyle(color: ThemeApp.onBackground),
           ),
           color: Colors.green.shade900,
         ),

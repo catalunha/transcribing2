@@ -5,8 +5,6 @@ import 'package:path/path.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
-import 'package:transcribing2/app/modules/phrase/phrase_controller.dart';
-import 'package:transcribing2/app/modules/user/user_controller.dart';
 
 enum UploadStage {
   analyzingStorage,
@@ -131,9 +129,6 @@ class UploadController extends GetxController {
   upload(String pathInFirestore) async {
     uploadStage.value = UploadStage.connectingWithStorage;
 
-    // final PhraseController _phraseController = Get.find<PhraseController>();
-
-    // taskSnapshot.bindStream(uploadingBytes(pathInFirestore)!.snapshotEvents);
     UploadTask? uploadTask = uploadingBytes(pathInFirestore);
     if (uploadTask != null) {
       uploadStage.value = UploadStage.sendingFileToStorage;
@@ -142,11 +137,9 @@ class UploadController extends GetxController {
       return null;
     }
     Stream<TaskSnapshot> streamTaskSnapshot = uploadTask.snapshotEvents;
-    await streamTaskSnapshot.listen((event) {
+    streamTaskSnapshot.listen((event) {
       final progress = event.bytesTransferred / event.totalBytes;
       uploadPercentage.value = (progress * 100).toInt();
-      // _phraseController.uploadPercentage2.value = (progress * 100);
-      print('$uploadPercentage %');
     });
     final snapshot = await uploadTask.whenComplete(() {
       uploadStage.value = UploadStage.shippingCompleted;
@@ -157,24 +150,14 @@ class UploadController extends GetxController {
     isDownloadComplet.toggle();
 
     externalGetUrl(urlForDownload.value);
-    // sendUrlForExternalController();
   }
-
-  // setExternalGetUrl(Function(String) getUrl) {
-  //   externalGetUrl = getUrl;
-  // }
-
-  // sendUrlForExternalController() {
-  //   externalGetUrl(urlForDownload.value);
-  // }
 
   UploadTask? uploadingBytes(String pathInFirestore) {
     UploadTask? task;
     try {
       final ref = FirebaseStorage.instance.ref('$pathInFirestore/$fileName');
       task = ref.putData(fileBytes!);
-    } on FirebaseException catch (e) {
-      print('--> uploadingBytes error $e');
+    } on FirebaseException {
       return null;
     }
     return task;

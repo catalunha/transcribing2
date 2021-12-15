@@ -2,19 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:transcribing2/app/modules/upload/upload_controller.dart';
 import 'package:transcribing2/app/theme/app_icon.dart';
-import 'package:url_launcher/url_launcher.dart';
 
-// class UploadWidget extends GetView<UploadController> {
 class UploadWidget extends StatelessWidget {
-  // UploadController controller = Get.find<UploadController>();
   UploadController controller = Get.put(UploadController());
   final String label;
   final bool requiredField;
   final Function(String) getUrl;
   final String pathInFirestore;
-  // final VoidCallback uploadingFile;
-  // final double percentageOfUpload;
-  // final String urlForDownload;
   final String initialUrl;
 
   UploadWidget({
@@ -23,8 +17,6 @@ class UploadWidget extends StatelessWidget {
     required this.requiredField,
     required this.getUrl,
     required this.pathInFirestore,
-    // required this.uploadingFile,
-    // required this.percentageOfUpload,
     required this.initialUrl,
   }) : super(key: key);
 
@@ -66,12 +58,6 @@ class UploadWidget extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () async {
                     controller.startUpload();
-                    // bool selectedFile = await controller.selectFileUpload();
-                    // if(selectedFile){
-
-                    // controller.upload(pathInFirestore);
-                    // }
-                    // controller.setExternalGetUrl(getUrl);
                   },
                   child: const Icon(
                     AppIconData.search,
@@ -92,16 +78,6 @@ class UploadWidget extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // ListTile(
-                    //   leading: const Icon(AppIconData.search),
-                    //   title: const Text('1º Select the file'),
-                    //   // subtitle: Text(selectedLocalFileName),
-                    //   onTap: () async {
-                    //     await controller.selectFileUpload();
-                    //     controller.upload(pathInFirestore);
-                    //     setStateWidget();
-                    //   },
-                    // ),
                     Obx(() {
                       Widget info = const SizedBox();
                       if (controller.uploadStage.value ==
@@ -118,65 +94,16 @@ class UploadWidget extends StatelessWidget {
                             Text('File name: ${controller.fileName.value}'),
                             Text(
                                 'Percentage: ${controller.uploadPercentage} %'),
-                            // Text(
-                            //     'Download: ${controller.isDownloadComplet.value ? "completed" : ""}')
                           ],
                         );
                       }
                       return info;
                     }),
-                    // Obx(() {
-                    //   return Text('File name: ${controller.fileName.value}');
-                    // }),
-                    // Obx(() {
-                    //   return Text(
-                    //       'Percentage: ${controller.uploadPercentage} %');
-                    // }),
-                    // // Obx(() {
-                    // //   return Text('${controller.urlForDownload}');
-                    // // }),
-                    // Obx(() {
-                    //   return Text(
-                    //       'Download: ${controller.isDownloadComplet.value ? "completed" : ""}');
-                    // }),
-                    // Obx(() {
-                    //   return Text(
-                    //       'Estágio: ${controller.uploadStage.value.name}');
-                    // }),
-                    // ListTile(
-                    //   leading: const Icon(AppIconData.saveInCloud),
-                    //   title: const Text('2º Send for cloud'),
-                    //   subtitle: percentageOfUpload > 0
-                    //       ? const Text('Sending...')
-                    //       : const Text(''),
-                    //   onTap: uploadingFile,
-                    //   trailing: Text(percentageOfUpload.toStringAsFixed(2)),
-                    // ),
-                    // ListTile(
-                    //   leading: const Icon(AppIconData.linkOn),
-                    //   title: const Text('3º Check de audio in web'),
-                    //   subtitle: Text(urlForDownload),
-                    //   onTap: () async {
-                    //     if (urlForDownload.isNotEmpty) {
-                    //       bool can = await canLaunch(urlForDownload);
-                    //       if (can) {
-                    //         await launch(urlForDownload, forceWebView: true);
-                    //       } else {
-                    //         // print('launch nao possivel');
-                    //       }
-                    //     }
-                    //   },
-                    // ),
                   ],
                 ),
               ),
             ],
           ),
-          // Divider(
-          //   height: 1,
-          //   thickness: 1,
-          //   color: Colors.white,
-          // ),
         ],
       ),
     );

@@ -10,7 +10,6 @@ class SearchUserWidget extends StatelessWidget {
   final IconData icon;
   final String messageTooltip;
   final bool required;
-  // final bool? isFieldValid;
   final void Function(String) onDeleteUser;
   final void Function() search;
   const SearchUserWidget({
@@ -22,7 +21,6 @@ class SearchUserWidget extends StatelessWidget {
     required this.search,
     this.required = false,
     this.messageTooltip = '',
-    // required this.isFieldValid,
   }) : super(key: key);
 
   @override
@@ -38,19 +36,6 @@ class SearchUserWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // IconButton(
-                  //   onPressed: () {
-                  //     search();
-                  //   },
-                  //   icon: Icon(AppIconData.search),
-                  // ),
-                  // Text(
-                  //   label,
-                  //   softWrap: true,
-                  //   style: TextStyle(
-                  //       // color: Colors.white,
-                  //       ),
-                  // ),
                   TextButton.icon(
                     onPressed: () {
                       search();
@@ -99,19 +84,6 @@ class SearchUserWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              // Expanded(
-              //   child: Column(
-              //     children: [
-              //       SingleChildScrollView(
-              //         child: Column(
-              //           children: userRefList
-              //               .map((e) => listTilePerson(userRef: e))
-              //               .toList(),
-              //         ),
-              //       ),
-              //     ],
-              //   ),
-              // ),
             ],
           ),
         ],
@@ -165,30 +137,4 @@ class SearchUserWidget extends StatelessWidget {
       }
     });
   }
-
-  // Widget listTilePerson({required UserRef? userRef}) {
-  //   return ListTile(
-  //     leading: userRef!.photoURL == null
-  //         ? const SizedBox(
-  //             height: 58,
-  //             width: 58,
-  //           )
-  //         : ClipRRect(
-  //             borderRadius: BorderRadius.circular(8.0),
-  //             child: Image.network(
-  //               userRef.photoURL!,
-  //               height: 58,
-  //               width: 58,
-  //             ),
-  //           ),
-  //     title: Text(userRef.displayName ?? 'Not name'),
-  //     subtitle: Text(userRef.email),
-  //     trailing: IconButton(
-  //       icon: const Icon(AppIconData.delete),
-  //       onPressed: () {
-  //         onDeleteUser(userRef.id);
-  //       },
-  //     ),
-  //   );
-  // }
 }

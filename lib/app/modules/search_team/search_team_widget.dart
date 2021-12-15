@@ -1,27 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:transcribing2/app/data/model/team_model.dart';
-import 'package:transcribing2/app/modules/team/team_card.dart';
 import 'package:transcribing2/app/theme/app_icon.dart';
 
 class SearchTeamWidget extends StatelessWidget {
   final String label;
-  // final TeamModel? team;
   final Widget teamWidget;
   final IconData icon;
   final String messageTooltip;
   final bool required;
-  // final bool? isFieldValid;
   const SearchTeamWidget({
     Key? key,
     required this.label,
-    // required this.team,
     required this.teamWidget,
     this.icon = AppIconData.people,
-    // required this.search,
     this.required = false,
     this.messageTooltip = '',
-    // required this.isFieldValid,
   }) : super(key: key);
 
   @override
