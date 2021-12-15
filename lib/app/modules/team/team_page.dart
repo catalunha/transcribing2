@@ -60,7 +60,10 @@ class TeamPage extends GetView<TeamController> {
           children: listWidget,
         );
       } else {
-        return const Center(child: CircularProgressIndicator());
+        return const ListTile(
+          leading: Icon(AppIconData.smile),
+          title: Text("Ops. You don't have any task."),
+        );
       }
     });
   }

@@ -14,6 +14,8 @@ class TranscriptionArchivedPage extends GetView<TranscriptionController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Your transcriptions archived'),
+        // backgroundColor: Colors.orange,
+        foregroundColor: Colors.orange,
       ),
       body: Column(
         children: [

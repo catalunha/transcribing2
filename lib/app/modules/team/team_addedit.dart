@@ -31,7 +31,7 @@ class TeamAddEdit extends GetView<TeamController> {
                     initialValue: controller.model.name,
                     validator: controller.formValidateRequiredText,
                     onChanged: (value) {
-                      controller.formOnChangeField(name: value);
+                      controller.onChangeModel(name: value);
                     },
                   ),
                 ],
@@ -45,7 +45,7 @@ class TeamAddEdit extends GetView<TeamController> {
                       color: Colors.white,
                     ),
                   )),
-              userRefList: controller.model.students.values.toList(),
+              // userRefList: controller.model.students.values.toList(),
               required: true,
               onDeleteUser: (String value) {
                 controller.removeStudent(value);

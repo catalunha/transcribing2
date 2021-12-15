@@ -6,7 +6,7 @@ import 'package:transcribing2/app/theme/app_icon.dart';
 
 class SearchUserWidget extends StatelessWidget {
   final Widget label;
-  final List<UserRef> userRefList;
+  // final List<UserRef> userRefList;
   final IconData icon;
   final String messageTooltip;
   final bool required;
@@ -15,7 +15,7 @@ class SearchUserWidget extends StatelessWidget {
   const SearchUserWidget({
     Key? key,
     required this.label,
-    required this.userRefList,
+    // required this.userRefList,
     this.icon = AppIconData.list,
     required this.onDeleteUser,
     required this.search,

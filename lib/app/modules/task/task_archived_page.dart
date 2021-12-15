@@ -14,6 +14,7 @@ class TaskArchivedPage extends GetView<TaskController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('My tasks archived'),
+        foregroundColor: Colors.orange,
       ),
       body: Column(
         children: [

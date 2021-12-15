@@ -45,14 +45,14 @@ class TeamController extends GetxController {
   String? formValidateRequiredText(String? value) =>
       value?.isEmpty ?? true ? 'This field cannot be empty.' : null;
 
-  void formOnChangeField({
+  void onChangeModel({
     String? name,
   }) {
-    _model = _model.value
-        .copyWith(
-          name: name,
-        )
-        .obs;
+    _model.update((value) {
+      if (name != null) {
+        value!.name = name;
+      }
+    });
   }
 
   validateExtraFields() {

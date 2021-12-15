@@ -107,7 +107,6 @@ class TranscriptionController extends GetxController {
 
   delete(String id) {
     _repository.delete(id);
-    Get.back();
   }
 
   archive(String id, bool status) {
